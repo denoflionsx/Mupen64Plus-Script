@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-audio-sdl", "..\mupen64plus-audio-sdl\projects\vs141\mupen64plus-audio-sdl.vcxproj", "{96969748-EA54-43FC-8103-A346E9AD98E7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-input-sdl", "..\mupen64plus-input-sdl\projects\vs141\mupen64plus-input-sdl.vcxproj", "{7F3178D0-0E2E-471B-9160-69F0354F9DE9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-rsp-cxd4", "..\mupen64plus-rsp-cxd4\projects\vs141\mupen64plus-rsp-cxd4.vcxproj", "{F597CC21-12F9-459F-A257-38BD7F102BC8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-rsp-hle", "..\mupen64plus-rsp-hle\projects\vs141\mupen64plus-rsp-hle.vcxproj", "{2EC7CEE3-C7A7-4F2E-B2C8-4DF6AFEC3E9A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-video-glide64", "..\mupen64plus-video-glide64\projects\vs141\mupen64plus-video-glide64.vcxproj", "{F3E6138A-C318-4020-B408-A9A24D8B3DE7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-video-rice", "..\mupen64plus-video-rice\projects\vs141\mupen64plus-video-rice.vcxproj", "{7D4AFF6A-B7D9-4C25-975A-038B8079098E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-core", "..\mupen64plus-core\projects\vs141\mupen64plus-core.vcxproj", "{92D3FEB9-2129-41C5-8577-BCD7D961EF41}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-ui-console", "..\mupen64plus-ui-console\projects\vs141\mupen64plus-ui-console.vcxproj", "{0E29D9F8-C675-4D21-AF16-AA80EDDB264E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mupen64plus-binding-shell", "..\mupen64plus-binding-shell\projects\vs141\mupen64plus-binding-shell.vcxproj", "{D091E9D8-386B-4419-9508-DA2FA8EC2C46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96969748-EA54-43FC-8103-A346E9AD98E7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{96969748-EA54-43FC-8103-A346E9AD98E7}.Debug|Win32.Build.0 = Debug|Win32
+		{96969748-EA54-43FC-8103-A346E9AD98E7}.Release|Win32.ActiveCfg = Release|Win32
+		{96969748-EA54-43FC-8103-A346E9AD98E7}.Release|Win32.Build.0 = Release|Win32
+		{7F3178D0-0E2E-471B-9160-69F0354F9DE9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F3178D0-0E2E-471B-9160-69F0354F9DE9}.Debug|Win32.Build.0 = Debug|Win32
+		{7F3178D0-0E2E-471B-9160-69F0354F9DE9}.Release|Win32.ActiveCfg = Release|Win32
+		{7F3178D0-0E2E-471B-9160-69F0354F9DE9}.Release|Win32.Build.0 = Release|Win32
+		{F597CC21-12F9-459F-A257-38BD7F102BC8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F597CC21-12F9-459F-A257-38BD7F102BC8}.Debug|Win32.Build.0 = Debug|Win32
+		{F597CC21-12F9-459F-A257-38BD7F102BC8}.Release|Win32.ActiveCfg = Release|Win32
+		{F597CC21-12F9-459F-A257-38BD7F102BC8}.Release|Win32.Build.0 = Release|Win32
+		{2EC7CEE3-C7A7-4F2E-B2C8-4DF6AFEC3E9A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2EC7CEE3-C7A7-4F2E-B2C8-4DF6AFEC3E9A}.Debug|Win32.Build.0 = Debug|Win32
+		{2EC7CEE3-C7A7-4F2E-B2C8-4DF6AFEC3E9A}.Release|Win32.ActiveCfg = Release|Win32
+		{2EC7CEE3-C7A7-4F2E-B2C8-4DF6AFEC3E9A}.Release|Win32.Build.0 = Release|Win32
+		{F3E6138A-C318-4020-B408-A9A24D8B3DE7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F3E6138A-C318-4020-B408-A9A24D8B3DE7}.Debug|Win32.Build.0 = Debug|Win32
+		{F3E6138A-C318-4020-B408-A9A24D8B3DE7}.Release|Win32.ActiveCfg = Release|Win32
+		{F3E6138A-C318-4020-B408-A9A24D8B3DE7}.Release|Win32.Build.0 = Release|Win32
+		{7D4AFF6A-B7D9-4C25-975A-038B8079098E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7D4AFF6A-B7D9-4C25-975A-038B8079098E}.Debug|Win32.Build.0 = Debug|Win32
+		{7D4AFF6A-B7D9-4C25-975A-038B8079098E}.Release|Win32.ActiveCfg = Release|Win32
+		{7D4AFF6A-B7D9-4C25-975A-038B8079098E}.Release|Win32.Build.0 = Release|Win32
+		{92D3FEB9-2129-41C5-8577-BCD7D961EF41}.Debug|Win32.ActiveCfg = Debug|Win32
+		{92D3FEB9-2129-41C5-8577-BCD7D961EF41}.Debug|Win32.Build.0 = Debug|Win32
+		{92D3FEB9-2129-41C5-8577-BCD7D961EF41}.Release|Win32.ActiveCfg = Release|Win32
+		{92D3FEB9-2129-41C5-8577-BCD7D961EF41}.Release|Win32.Build.0 = Release|Win32
+		{0E29D9F8-C675-4D21-AF16-AA80EDDB264E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0E29D9F8-C675-4D21-AF16-AA80EDDB264E}.Debug|Win32.Build.0 = Debug|Win32
+		{0E29D9F8-C675-4D21-AF16-AA80EDDB264E}.Release|Win32.ActiveCfg = Release|Win32
+		{0E29D9F8-C675-4D21-AF16-AA80EDDB264E}.Release|Win32.Build.0 = Release|Win32
+		{D091E9D8-386B-4419-9508-DA2FA8EC2C46}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D091E9D8-386B-4419-9508-DA2FA8EC2C46}.Debug|Win32.Build.0 = Debug|Win32
+		{D091E9D8-386B-4419-9508-DA2FA8EC2C46}.Release|Win32.ActiveCfg = Release|Win32
+		{D091E9D8-386B-4419-9508-DA2FA8EC2C46}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96969748-EA54-43FC-8103-A346E9AD98E7} = {2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}
+		{7F3178D0-0E2E-471B-9160-69F0354F9DE9} = {2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}
+		{F597CC21-12F9-459F-A257-38BD7F102BC8} = {2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}
+		{2EC7CEE3-C7A7-4F2E-B2C8-4DF6AFEC3E9A} = {2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}
+		{F3E6138A-C318-4020-B408-A9A24D8B3DE7} = {2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}
+		{7D4AFF6A-B7D9-4C25-975A-038B8079098E} = {2B623460-3894-46BF-B1A8-A8DD2B8D0C4D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {75CDBCC1-45CD-4E23-B98C-1DC7E64AE469}
+	EndGlobalSection
+EndGlobal

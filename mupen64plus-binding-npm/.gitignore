@@ -1,0 +1,5 @@
+*.log
+build
+bin
+node_modules
+mupen64plus-binding-shell.lib
