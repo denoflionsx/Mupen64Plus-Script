@@ -158,6 +158,7 @@ typedef enum {
   M64CMD_RESET,
   M64CMD_ADVANCE_FRAME,
   M64CMD_LOAD_LUA_SCRIPT,
+  M64CMD_LOAD_PYTHON_SCRIPT,
 } m64p_command;
 
 typedef struct {

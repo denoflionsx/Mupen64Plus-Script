@@ -5,12 +5,14 @@
         "cflags_cc!": [ "-fno-exceptions" ],
         'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
         'dependencies': [ "<!(node -p \"require('node-addon-api').gyp\")" ],
-        'libraries': [ "<(module_root_dir)/mupen64plus-binding-shell.lib" ],
-        "sources": [ "m64b.cpp" ],
+        'libraries': [ "<(module_root_dir)/source/mupen64plus-binding-shell.lib" ],
+        "sources": [ 
+            "source/cpp/m64b.cpp",
+        ],
 
         'include_dirs': [
             "<!@(node -p \"require('node-addon-api').include\")",
-            "<(module_root_dir)/../mupen64plus-binding-shell/src/",
+            "<(module_root_dir)/../mupen64plus-binding-shell/src/api",
             "<(module_root_dir)/../mupen64plus-core/src/api"
         ],
         

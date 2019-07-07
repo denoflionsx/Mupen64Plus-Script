@@ -81,7 +81,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copying shared data and libraries to build directory...</Message>
-      <Command>copy "$(OutDir)"\mupen64plus-binding-shell.lib ..\..\..\mupen64plus-binding-npm\
+      <Command>copy "$(OutDir)"\mupen64plus-binding-shell.lib ..\..\..\mupen64plus-binding-npm\source\
 
 del "$(OutDir)"\*.exp
 del "$(OutDir)"\*.ilk
@@ -112,7 +112,7 @@ del "$(OutDir)"\*.pdb</Command>
     </Link>
     <PostBuildEvent>
       <Message>Copying shared data and libraries to build directory...</Message>
-      <Command>copy "$(OutDir)"\mupen64plus-binding-shell.lib ..\..\..\mupen64plus-binding-npm\
+      <Command>copy "$(OutDir)"\mupen64plus-binding-shell.lib ..\..\..\mupen64plus-binding-npm\source\
 
 del "$(OutDir)"\*.exp
 del "$(OutDir)"\*.ilk
@@ -123,26 +123,28 @@ del "$(OutDir)"\*.pdb</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\API\m64b.c" />
-    <ClCompile Include="..\..\src\cheat.c" />
-    <ClCompile Include="..\..\src\compare_core.c" />
-    <ClCompile Include="..\..\src\core_interface.c" />
-    <ClCompile Include="..\..\src\main.c" />
-    <ClCompile Include="..\..\src\osal_dynamiclib_win32.c" />
-    <ClCompile Include="..\..\src\osal_files_win32.c" />
-    <ClCompile Include="..\..\src\plugin.c" />
+    <ClCompile Include="..\..\src\api\m64p_binding_interface.c" />
+    <ClCompile Include="..\..\src\api\m64p_binding_rdmem.c" />
+    <ClCompile Include="..\..\src\cheat\cheat.c" />
+    <ClCompile Include="..\..\src\internal\compare_core.c" />
+    <ClCompile Include="..\..\src\internal\core_interface.c" />
+    <ClCompile Include="..\..\src\internal\main.c" />
+    <ClCompile Include="..\..\src\osal\osal_dynamiclib_win32.c" />
+    <ClCompile Include="..\..\src\osal\osal_files_win32.c" />
+    <ClCompile Include="..\..\src\plugin\plugin.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\API\m64b.h" />
-    <ClInclude Include="..\..\src\cheat.h" />
-    <ClInclude Include="..\..\src\compare_core.h" />
-    <ClInclude Include="..\..\src\core_interface.h" />
-    <ClInclude Include="..\..\src\main.h" />
-    <ClInclude Include="..\..\src\osal_dynamiclib.h" />
-    <ClInclude Include="..\..\src\osal_files.h" />
-    <ClInclude Include="..\..\src\osal_preproc.h" />
-    <ClInclude Include="..\..\src\plugin.h" />
-    <ClInclude Include="..\..\src\version.h" />
+    <ClInclude Include="..\..\src\api\m64p_binding_interface.h" />
+    <ClInclude Include="..\..\src\api\m64p_binding_rdmem.h" />
+    <ClInclude Include="..\..\src\cheat\cheat.h" />
+    <ClInclude Include="..\..\src\internal\compare_core.h" />
+    <ClInclude Include="..\..\src\internal\core_interface.h" />
+    <ClInclude Include="..\..\src\internal\main.h" />
+    <ClInclude Include="..\..\src\internal\version.h" />
+    <ClInclude Include="..\..\src\osal\osal_dynamiclib.h" />
+    <ClInclude Include="..\..\src\osal\osal_files.h" />
+    <ClInclude Include="..\..\src\osal\osal_preproc.h" />
+    <ClInclude Include="..\..\src\plugin\plugin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

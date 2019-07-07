@@ -2,14 +2,14 @@
   "name": "m64pnpm",
   "version": "1.0.0",
   "description": "A NodeJS implementation of the exposed Mupen64Plus API.",
-  "main": "test.js",
+  "main": "source/js/test.js",
   "private": true,
   "gypfile": true,
   "scripts": {
     "build": "node-gyp rebuild --arch=ia32",
     "clean": "node-gyp clean",
-    "test": "node test.js",
-    "winpak": "pak_windows.bat"
+    "test": "node source/js/test.js",
+    "winpak": "source\\pak_windows.bat"
   },
   "author": "SpiceyWolf",
   "license": "ISC",

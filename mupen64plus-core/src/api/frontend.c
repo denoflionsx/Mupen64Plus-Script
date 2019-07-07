@@ -97,6 +97,7 @@ EXPORT m64p_error CALL CoreStartup(int APIVersion, const char *ConfigPath, const
     workqueue_init();
 
 	m64p_lua_init();
+	m64p_python_init();
 
     l_CoreInit = 1;
     return M64ERR_SUCCESS;
@@ -295,6 +296,8 @@ EXPORT m64p_error CALL CoreDoCommand(m64p_command Command, int ParamInt, void *P
             return M64ERR_SUCCESS;
 		case M64CMD_LOAD_LUA_SCRIPT:
 			return m64p_lua_load_script((const char*)ParamPtr);
+		case M64CMD_LOAD_PYTHON_SCRIPT:
+			return m64p_python_load_script((const char*)ParamPtr);
         default:
             return M64ERR_INPUT_INVALID;
     }

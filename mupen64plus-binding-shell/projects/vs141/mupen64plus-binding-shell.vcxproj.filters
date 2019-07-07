@@ -1,34 +1,84 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\src\cheat.c" />
-    <ClCompile Include="..\..\src\compare_core.c" />
-    <ClCompile Include="..\..\src\core_interface.c" />
-    <ClCompile Include="..\..\src\main.c" />
-    <ClCompile Include="..\..\src\osal_dynamiclib_win32.c" />
-    <ClCompile Include="..\..\src\osal_files_win32.c" />
-    <ClCompile Include="..\..\src\plugin.c" />
-    <ClCompile Include="..\..\src\API\m64b.c">
-      <Filter>API</Filter>
+    <ClCompile Include="..\..\src\osal\osal_dynamiclib_win32.c">
+      <Filter>osal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\osal\osal_files_win32.c">
+      <Filter>osal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\internal\compare_core.c">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\internal\core_interface.c">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\internal\main.c">
+      <Filter>internal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\plugin\plugin.c">
+      <Filter>plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\cheat\cheat.c">
+      <Filter>cheat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\api\m64p_binding_interface.c">
+      <Filter>api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\api\m64p_binding_rdmem.c">
+      <Filter>api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\cheat.h" />
-    <ClInclude Include="..\..\src\compare_core.h" />
-    <ClInclude Include="..\..\src\core_interface.h" />
-    <ClInclude Include="..\..\src\main.h" />
-    <ClInclude Include="..\..\src\osal_dynamiclib.h" />
-    <ClInclude Include="..\..\src\osal_files.h" />
-    <ClInclude Include="..\..\src\osal_preproc.h" />
-    <ClInclude Include="..\..\src\plugin.h" />
-    <ClInclude Include="..\..\src\version.h" />
-    <ClInclude Include="..\..\src\API\m64b.h">
-      <Filter>API</Filter>
+    <ClInclude Include="..\..\src\osal\osal_dynamiclib.h">
+      <Filter>osal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\osal\osal_files.h">
+      <Filter>osal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\osal\osal_preproc.h">
+      <Filter>osal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\internal\compare_core.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\internal\core_interface.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\internal\main.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\internal\version.h">
+      <Filter>internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\plugin\plugin.h">
+      <Filter>plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\cheat\cheat.h">
+      <Filter>cheat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\api\m64p_binding_interface.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\api\m64p_binding_rdmem.h">
+      <Filter>api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="API">
+    <Filter Include="api">
       <UniqueIdentifier>{2b4f78c3-ffdf-4b81-a77b-e5a4c6be7fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="internal">
+      <UniqueIdentifier>{e12de0e5-0281-4319-83ea-1bcd9a58ae1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="osal">
+      <UniqueIdentifier>{db5ae4f8-9fcc-42c3-8485-fd03f9bea343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="plugin">
+      <UniqueIdentifier>{954d1615-e18e-40c1-a897-00b1bffbf7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cheat">
+      <UniqueIdentifier>{8ccfb2cd-a227-49aa-9966-abb6d2be2b1a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

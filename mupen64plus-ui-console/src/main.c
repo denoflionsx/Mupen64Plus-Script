@@ -280,6 +280,7 @@ static void printUsage(const char *progname)
 		"    --core-compare-send    : use the Core Comparison debugging feature, in data sending mode\n"
 		"    --core-compare-recv    : use the Core Comparison debugging feature, in data receiving mode\n"
 		"    --lua (filepath)        : load specified Lua script at start\n"
+		"    --python (filepath)        : load specified Python script at start\n"
 		"    --nosaveoptions        : do not save the given command-line options in configuration file\n"
 		"    --verbose              : print lots of information\n"
 		"    --help                 : see this help message\n\n"
@@ -582,8 +583,13 @@ static m64p_error ParseCommandLineFinal(int argc, const char **argv)
 		}
 		else if (strcmp(argv[i], "--lua") == 0 && ArgsLeft >= 1)
 		{
-		(*CoreDoCommand)(M64CMD_LOAD_LUA_SCRIPT, 0, (char*)argv[i + 1]);
-		i++;
+			(*CoreDoCommand)(M64CMD_LOAD_LUA_SCRIPT, 0, (char*)argv[i + 1]);
+			i++;
+		}
+		else if (strcmp(argv[i], "--python") == 0 && ArgsLeft >= 1)
+		{
+			(*CoreDoCommand)(M64CMD_LOAD_PYTHON_SCRIPT, 0, (char*)argv[i + 1]);
+			i++;
 		}
 		else if (strcmp(argv[i], "--core-compare-send") == 0)
 		{

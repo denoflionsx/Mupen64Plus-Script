@@ -228,6 +228,11 @@
     <ClCompile Include="..\..\src\script\lua\m64p_lua_memlib.c" />
     <ClCompile Include="..\..\src\script\lua\m64p_lua_osdlib.c" />
     <ClCompile Include="..\..\src\script\lua\m64p_lua_romlib.c" />
+    <ClCompile Include="..\..\src\script\python\m64p_pythonlib.c" />
+    <ClCompile Include="..\..\src\script\python\m64p_python_memlib.c" />
+    <ClCompile Include="..\..\src\script\python\m64p_python_osdlib.c" />
+    <ClCompile Include="..\..\src\script\python\m64p_python_romlib.c" />
+    <ClCompile Include="..\..\src\script\python\python.c" />
     <ClCompile Include="..\..\src\si\af_rtc.c" />
     <ClCompile Include="..\..\src\si\cic.c" />
     <ClCompile Include="..\..\src\si\eeprom.c" />
@@ -253,6 +258,7 @@
     <ClInclude Include="..\..\src\api\m64p_types.h" />
     <ClInclude Include="..\..\src\api\m64p_vidext.h" />
     <ClInclude Include="..\..\src\api\script\m64p_lua.h" />
+    <ClInclude Include="..\..\src\api\script\m64p_python.h" />
     <ClInclude Include="..\..\src\api\vidext.h" />
     <ClInclude Include="..\..\src\api\vidext_sdl2_compat.h" />
     <ClInclude Include="..\..\src\debugger\dbg_breakpoints.h" />
@@ -376,6 +382,7 @@
     <ClInclude Include="..\..\src\ri\ri_controller.h" />
     <ClInclude Include="..\..\src\rsp\rsp_core.h" />
     <ClInclude Include="..\..\src\script\lua\lua.h" />
+    <ClInclude Include="..\..\src\script\python\python.h" />
     <ClInclude Include="..\..\src\si\af_rtc.h" />
     <ClInclude Include="..\..\src\si\cic.h" />
     <ClInclude Include="..\..\src\si\eeprom.h" />
@@ -461,7 +468,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\src;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\include;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\include;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\include;..\..\..\mupen64plus-win32-deps\freetype-2.6\include;..\..\..\mupen64plus-win32-deps\lua-5.3.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\include;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\include;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\include;..\..\..\mupen64plus-win32-deps\freetype-2.6\include;..\..\..\mupen64plus-win32-deps\lua-5.3.5\include;..\..\..\mupen64plus-win32-deps\python-2.7.16\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;DYNAREC;M64P_OSD;M64P_PARALLEL;NEW_DYNAREC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -475,7 +482,7 @@
       </DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shell32.lib;opengl32.lib;glu32.lib;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\lib\SDL.lib;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\lib\zlib.lib;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\lib\libpng16.lib;..\..\..\mupen64plus-win32-deps\freetype-2.6\lib\freetype26.lib;..\..\..\mupen64plus-win32-deps\lua-5.3.5\lib\lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shell32.lib;opengl32.lib;glu32.lib;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\lib\SDL.lib;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\lib\zlib.lib;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\lib\libpng16.lib;..\..\..\mupen64plus-win32-deps\freetype-2.6\lib\freetype26.lib;..\..\..\mupen64plus-win32-deps\lua-5.3.5\lib\lua53.lib;..\..\..\mupen64plus-win32-deps\python-2.7.16\lib\python27.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)mupen64plus.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -488,6 +495,7 @@
 copy ..\..\..\mupen64plus-win32-deps\freetype-2.6\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\libpng-1.6.18\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\lua-5.3.5\lib\*.dll "$(OutDir)"
+copy ..\..\..\mupen64plus-win32-deps\python-2.7.16\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\SDL-1.2.15\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\zlib-1.2.8\lib\*.dll "$(OutDir)"
 
@@ -504,7 +512,7 @@ del "$(OutDir)"\*.pdb</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\src;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\include;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\include;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\include;..\..\..\mupen64plus-win32-deps\freetype-2.6\include;..\..\..\mupen64plus-win32-deps\lua-5.3.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\src;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\include;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\include;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\include;..\..\..\mupen64plus-win32-deps\freetype-2.6\include;..\..\..\mupen64plus-win32-deps\lua-5.3.5\include;..\..\..\mupen64plus-win32-deps\python-2.7.16\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;DYNAREC;M64P_OSD;M64P_PARALLEL;NEW_DYNAREC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -514,7 +522,7 @@ del "$(OutDir)"\*.pdb</Command>
       <CompileAs>Default</CompileAs>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shell32.lib;opengl32.lib;glu32.lib;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\lib\SDL.lib;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\lib\zlib.lib;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\lib\libpng16.lib;..\..\..\mupen64plus-win32-deps\freetype-2.6\lib\freetype26.lib;..\..\..\mupen64plus-win32-deps\lua-5.3.5\lib\lua53.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>shell32.lib;opengl32.lib;glu32.lib;..\..\..\mupen64plus-win32-deps\SDL-1.2.15\lib\SDL.lib;..\..\..\mupen64plus-win32-deps\zlib-1.2.8\lib\zlib.lib;..\..\..\mupen64plus-win32-deps\libpng-1.6.18\lib\libpng16.lib;..\..\..\mupen64plus-win32-deps\freetype-2.6\lib\freetype26.lib;..\..\..\mupen64plus-win32-deps\lua-5.3.5\lib\lua53.lib;..\..\..\mupen64plus-win32-deps\python-2.7.16\lib\python27.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)mupen64plus.dll</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -527,6 +535,7 @@ del "$(OutDir)"\*.pdb</Command>
 copy ..\..\..\mupen64plus-win32-deps\freetype-2.6\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\libpng-1.6.18\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\lua-5.3.5\lib\*.dll "$(OutDir)"
+copy ..\..\..\mupen64plus-win32-deps\python-2.7.16\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\SDL-1.2.15\lib\*.dll "$(OutDir)"
 copy ..\..\..\mupen64plus-win32-deps\zlib-1.2.8\lib\*.dll "$(OutDir)"
 

@@ -29,6 +29,7 @@
 #include "osal/preproc.h"
 
 #include "script/lua/lua.h"
+#include "script/python/python.h"
 
 struct ai_controller;
 struct pi_controller;
