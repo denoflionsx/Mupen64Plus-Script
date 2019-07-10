@@ -84,7 +84,12 @@ EXPORT void CALL SetVerboseLog(int boolVal) {
 
 EXPORT int CALL RunEmulator(const char *romFile) {
 	l_ROMFilepath = strdup(romFile);
-	return EmuMain();
+	return EmuMain(false);
+}
+
+EXPORT int CALL RunEmulatorAsync(const char *romFile) {
+	l_ROMFilepath = strdup(romFile);
+	return EmuMain(true);
 }
 
 /*

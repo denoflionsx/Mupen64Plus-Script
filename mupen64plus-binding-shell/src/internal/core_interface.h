@@ -27,7 +27,7 @@
 #include "m64p_debugger.h"
 #include "m64p_frontend.h"
 #include "m64p_types.h"
-#include "m64p_rdmem.h"
+#include "m64p_memaccess.h"
 
 /* function declarations */
 extern m64p_error AttachCoreLib(const char *CoreLibFilepath);
@@ -42,18 +42,18 @@ extern m64p_dynlib_handle      CoreHandle;
 extern ptr_CoreErrorMessage    CoreErrorMessage;
 
 /* declarations of pointers to Core rdram functions */
-extern ptr_read_rdmem_64				RdRamRead64;
-extern ptr_read_rdmem_64_unaligned		RdRamReadU64;
-extern ptr_write_rdmem_64				RdRamWrite64;
-extern ptr_write_rdmem_64_unaligned		RdRamWriteU64;
-extern ptr_read_rdmem_32				RdRamRead32;
-extern ptr_read_rdmem_32_unaligned		RdRamReadU32;
-extern ptr_write_rdmem_32				RdRamWrite32;
-extern ptr_write_rdmem_32_unaligned		RdRamWriteU32;
-extern ptr_read_rdmem_16				RdRamRead16;
-extern ptr_write_rdmem_16				RdRamWrite16;
-extern ptr_read_rdmem_8					RdRamRead8;
-extern ptr_write_rdmem_8				RdRamWrite8;
+extern ptr_read_mem_64				RdRamRead64;
+extern ptr_read_mem_64_unaligned		RdRamReadU64;
+extern ptr_write_mem_64				RdRamWrite64;
+extern ptr_write_mem_64_unaligned		RdRamWriteU64;
+extern ptr_read_mem_32				RdRamRead32;
+extern ptr_read_mem_32_unaligned		RdRamReadU32;
+extern ptr_write_mem_32				RdRamWrite32;
+extern ptr_write_mem_32_unaligned		RdRamWriteU32;
+extern ptr_read_mem_16				RdRamRead16;
+extern ptr_write_mem_16				RdRamWrite16;
+extern ptr_read_mem_8					RdRamRead8;
+extern ptr_write_mem_8				RdRamWrite8;
 
 /* declarations of pointers to Core front-end functions */
 extern ptr_CoreStartup         CoreStartup;

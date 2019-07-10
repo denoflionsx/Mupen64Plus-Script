@@ -19,5 +19,6 @@ EXPORT void CALL SetResolution(int xres, int yres);
 EXPORT void CALL SetVerboseLog(int boolVal);
 
 EXPORT int CALL RunEmulator(const char *romFile);
+EXPORT int CALL RunEmulatorAsync(const char *romFile);
 
 #endif

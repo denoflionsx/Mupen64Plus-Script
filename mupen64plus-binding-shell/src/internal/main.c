@@ -430,13 +430,47 @@ static int *ParseNumberList(const char *InputString, int *ValuesFound)
 #define CALLBACK_FUNC NULL
 #endif
 
+void KillEmuProc(void) {
+	int i;
+
+	/* detach plugins from core and unload them */
+	for (i = 0; i < 4; i++)
+		(*CoreDetachPlugin)(g_PluginMap[i].type);
+	PluginUnload();
+
+	/* close the ROM image */
+	(*CoreDoCommand)(M64CMD_ROM_CLOSE, 0, NULL);
+
+	/* save the configuration file again if --nosaveoptions was not specified, to keep any updated parameters from the core/plugins */
+	if (l_SaveOptions)
+		SaveConfigurationOptions();
+
+	/* Shut down and release the Core library */
+	(*CoreShutdown)();
+	DetachCoreLib();
+
+	/* free allocated memory */
+	if (l_TestShotList != NULL)
+		free(l_TestShotList);
+}
+
 #ifndef WIN32
 /* Allow external modules to call the main function as a library method.  This is useful for user
  * interfaces that simply layer on top of (rather than re-implement) Binding-Shell (e.g. mupen64plus-ae).
  */
 __attribute__((visibility("default")))
+
+#else
+
+// Thread stuff here.
+DWORD WINAPI ExecuteM64PThread(void* data) {
+	(*CoreDoCommand)(M64CMD_EXECUTE, 0, NULL);
+	KillEmuProc();
+	return 0;
+}
+
 #endif
-int EmuMain(void)
+int EmuMain(bool async)
 {
 	int i;
 
@@ -572,27 +606,15 @@ int EmuMain(void)
 	}
 
 	/* run the game */
+	if (async) {
+#ifdef WIN32
+		HANDLE thread = CreateThread(NULL, 0, ExecuteM64PThread, NULL, 0, NULL);
+		if (thread == NULL) printf("Failed to start M64P Async process.\n");
+#endif
+		return 0;
+	}
+
 	(*CoreDoCommand)(M64CMD_EXECUTE, 0, NULL);
-
-	/* detach plugins from core and unload them */
-	for (i = 0; i < 4; i++)
-		(*CoreDetachPlugin)(g_PluginMap[i].type);
-	PluginUnload();
-
-	/* close the ROM image */
-	(*CoreDoCommand)(M64CMD_ROM_CLOSE, 0, NULL);
-
-	/* save the configuration file again if --nosaveoptions was not specified, to keep any updated parameters from the core/plugins */
-	if (l_SaveOptions)
-		SaveConfigurationOptions();
-
-	/* Shut down and release the Core library */
-	(*CoreShutdown)();
-	DetachCoreLib();
-
-	/* free allocated memory */
-	if (l_TestShotList != NULL)
-		free(l_TestShotList);
-
+	KillEmuProc();
 	return 0;
 }

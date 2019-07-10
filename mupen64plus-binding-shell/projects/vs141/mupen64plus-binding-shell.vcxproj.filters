@@ -25,7 +25,7 @@
     <ClCompile Include="..\..\src\api\m64p_binding_interface.c">
       <Filter>api</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\api\m64p_binding_rdmem.c">
+    <ClCompile Include="..\..\src\api\m64p_binding_memory.c">
       <Filter>api</Filter>
     </ClCompile>
   </ItemGroup>
@@ -60,7 +60,7 @@
     <ClInclude Include="..\..\src\api\m64p_binding_interface.h">
       <Filter>api</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\api\m64p_binding_rdmem.h">
+    <ClInclude Include="..\..\src\api\m64p_binding_memory.h">
       <Filter>api</Filter>
     </ClInclude>
   </ItemGroup>

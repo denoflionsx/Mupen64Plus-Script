@@ -20,8 +20,8 @@
 *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.          *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#if !defined(M64P_RDMEM_H)
-#define M64P_RDMEM_H
+#if !defined(M64P_MEMACCESS_H)
+#define M64P_MEMACCESS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -43,72 +43,68 @@ typedef uint32_t u32;
 typedef  int64_t s64;
 typedef uint64_t u64;
 
-typedef uint64 (*ptr_read_rdmem_64)(uint32 addr);
+typedef uint64 (*ptr_read_mem_64)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint64 CALL read_rdmem_64(uint32 addr);
+EXPORT uint64 CALL read_mem_64(uint32 addr);
 #endif
 
-typedef uint64(*ptr_read_rdmem_64_unaligned)(uint32 addr);
+typedef uint64(*ptr_read_mem_64_unaligned)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint64 CALL read_rdmem_64_unaligned(uint32 addr);
+EXPORT uint64 CALL read_mem_64_unaligned(uint32 addr);
 #endif
 
-typedef void(*ptr_write_rdmem_64)(uint32 addr, uint64 value);
+typedef void(*ptr_write_mem_64)(uint32 addr, uint64 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_rdmem_64(uint32 addr, uint64 value);
+EXPORT void CALL write_mem_64(uint32 addr, uint64 value);
 #endif
 
-typedef void(*ptr_write_rdmem_64_unaligned)(uint32 addr, uint64 value);
+typedef void(*ptr_write_mem_64_unaligned)(uint32 addr, uint64 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_rdmem_64_unaligned(uint32 addr, uint64 value);
+EXPORT void CALL write_mem_64_unaligned(uint32 addr, uint64 value);
 #endif
 
-typedef uint32(*ptr_read_rdmem_32)(uint32 addr);
+typedef uint32(*ptr_read_mem_32)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint32 CALL read_rdmem_32(uint32 addr);
+EXPORT uint32 CALL read_mem_32(uint32 addr);
 #endif
 
-typedef uint32(*ptr_read_rdmem_32_unaligned)(uint32 addr);
+typedef uint32(*ptr_read_mem_32_unaligned)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint32 CALL read_rdmem_32_unaligned(uint32 addr);
+EXPORT uint32 CALL read_mem_32_unaligned(uint32 addr);
 #endif
 
-typedef void(*ptr_write_rdmem_32)(uint32 addr, uint32 value);
+typedef void(*ptr_write_mem_32)(uint32 addr, uint32 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_rdmem_32(uint32 addr, uint32 value);
+EXPORT void CALL write_mem_32(uint32 addr, uint32 value);
 #endif
 
-typedef void(*ptr_write_rdmem_32_unaligned)(uint32 addr, uint32 value);
+typedef void(*ptr_write_mem_32_unaligned)(uint32 addr, uint32 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_rdmem_32_unaligned(uint32 addr, uint32 value);
+EXPORT void CALL write_mem_32_unaligned(uint32 addr, uint32 value);
 #endif
 
-typedef uint16(*ptr_read_rdmem_16)(uint32 addr);
+typedef uint16(*ptr_read_mem_16)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint16 CALL read_rdmem_16(uint32 addr);
+EXPORT uint16 CALL read_mem_16(uint32 addr);
 #endif
 
-typedef void(*ptr_write_rdmem_16)(uint32 addr, uint16 value);
+typedef void(*ptr_write_mem_16)(uint32 addr, uint16 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_rdmem_16(uint32 addr, uint16 value);
+EXPORT void CALL write_mem_16(uint32 addr, uint16 value);
 #endif
 
-typedef uint8(*ptr_read_rdmem_8)(uint32 addr);
+typedef uint8(*ptr_read_mem_8)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint8 CALL read_rdmem_8(uint32 addr);
+EXPORT uint8 CALL read_mem_8(uint32 addr);
 #endif
 
-typedef void(*ptr_write_rdmem_8)(uint32 addr, uint8 value);
+typedef void(*ptr_write_mem_8)(uint32 addr, uint8 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_rdmem_8(uint32 addr, uint8 value);
+EXPORT void CALL write_mem_8(uint32 addr, uint8 value);
 #endif
-
-#define CHECK_MEM(address) \
-  if(!invalid_code[(address) >> 12] && blocks[(address) >> 12]->block[((address) & 0xFFF)/4].ops != current_instruction_table.NOTCOMPILED) \
-    invalid_code[(address) >> 12]=1;
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* #define M64P_RDMEM_H */
+#endif /* #define M64P_MEMACCESS_H */

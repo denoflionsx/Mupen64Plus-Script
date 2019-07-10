@@ -31,7 +31,7 @@
 #include "m64p_debugger.h"
 #include "m64p_frontend.h"
 #include "m64p_types.h"
-#include "m64p_rdmem.h"
+#include "m64p_memaccess.h"
 #include "main.h"
 #include "../osal/osal_dynamiclib.h"
 #include "../osal/osal_preproc.h"
@@ -45,18 +45,18 @@ int g_CoreAPIVersion;
 ptr_CoreErrorMessage    CoreErrorMessage = NULL;
 
 /* definitions of pointers to Core rdram functions */
-ptr_read_rdmem_64				RdRamRead64 = NULL;
-ptr_read_rdmem_64_unaligned     RdRamReadU64 = NULL;
-ptr_write_rdmem_64				RdRamWrite64 = NULL;
-ptr_write_rdmem_64_unaligned    RdRamWriteU64 = NULL;
-ptr_read_rdmem_32				RdRamRead32 = NULL;
-ptr_read_rdmem_32_unaligned     RdRamReadU32 = NULL;
-ptr_write_rdmem_32				RdRamWrite32 = NULL;
-ptr_write_rdmem_32_unaligned    RdRamWriteU32 = NULL;
-ptr_read_rdmem_16				RdRamRead16 = NULL;
-ptr_write_rdmem_16				RdRamWrite16 = NULL;
-ptr_read_rdmem_8				RdRamRead8 = NULL;
-ptr_write_rdmem_8				RdRamWrite8 = NULL;
+ptr_read_mem_64				RdRamRead64 = NULL;
+ptr_read_mem_64_unaligned     RdRamReadU64 = NULL;
+ptr_write_mem_64				RdRamWrite64 = NULL;
+ptr_write_mem_64_unaligned    RdRamWriteU64 = NULL;
+ptr_read_mem_32				RdRamRead32 = NULL;
+ptr_read_mem_32_unaligned     RdRamReadU32 = NULL;
+ptr_write_mem_32				RdRamWrite32 = NULL;
+ptr_write_mem_32_unaligned    RdRamWriteU32 = NULL;
+ptr_read_mem_16				RdRamRead16 = NULL;
+ptr_write_mem_16				RdRamWrite16 = NULL;
+ptr_read_mem_8				RdRamRead8 = NULL;
+ptr_write_mem_8				RdRamWrite8 = NULL;
 
 /* definitions of pointers to Core front-end functions */
 ptr_CoreStartup         CoreStartup = NULL;
@@ -235,18 +235,18 @@ m64p_error AttachCoreLib(const char *CoreLibFilepath)
 	CoreCheatEnabled = (ptr_CoreCheatEnabled)osal_dynlib_getproc(CoreHandle, "CoreCheatEnabled");
 
 	/* get function pointers to the rdram functions */
-	RdRamRead64 = (ptr_read_rdmem_64)osal_dynlib_getproc(CoreHandle, "read_rdmem_64");
-	RdRamReadU64 = (ptr_read_rdmem_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_rdmem_64_unaligned");
-	RdRamWrite64 = (ptr_write_rdmem_64)osal_dynlib_getproc(CoreHandle, "write_rdmem_64");
-	RdRamWriteU64 = (ptr_write_rdmem_64_unaligned)osal_dynlib_getproc(CoreHandle, "write_rdmem_64_unaligned");
-	RdRamRead32 = (ptr_read_rdmem_32)osal_dynlib_getproc(CoreHandle, "read_rdmem_32");
-	RdRamReadU32 = (ptr_read_rdmem_32_unaligned)osal_dynlib_getproc(CoreHandle, "read_rdmem_32_unaligned");
-	RdRamWrite32 = (ptr_write_rdmem_32)osal_dynlib_getproc(CoreHandle, "write_rdmem_32");
-	RdRamWriteU32 = (ptr_write_rdmem_32_unaligned)osal_dynlib_getproc(CoreHandle, "write_rdmem_32_unaligned");
-	RdRamRead16 = (ptr_read_rdmem_16)osal_dynlib_getproc(CoreHandle, "read_rdmem_16");
-	RdRamWrite16 = (ptr_write_rdmem_16)osal_dynlib_getproc(CoreHandle, "write_rdmem_16");
-	RdRamRead8 = (ptr_read_rdmem_8)osal_dynlib_getproc(CoreHandle, "read_rdmem_8");
-	RdRamWrite8 = (ptr_write_rdmem_8)osal_dynlib_getproc(CoreHandle, "write_rdmem_8");
+	RdRamRead64 = (ptr_read_mem_64)osal_dynlib_getproc(CoreHandle, "read_mem_64");
+	RdRamReadU64 = (ptr_read_mem_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_mem_64_unaligned");
+	RdRamWrite64 = (ptr_write_mem_64)osal_dynlib_getproc(CoreHandle, "write_mem_64");
+	RdRamWriteU64 = (ptr_write_mem_64_unaligned)osal_dynlib_getproc(CoreHandle, "write_mem_64_unaligned");
+	RdRamRead32 = (ptr_read_mem_32)osal_dynlib_getproc(CoreHandle, "read_mem_32");
+	RdRamReadU32 = (ptr_read_mem_32_unaligned)osal_dynlib_getproc(CoreHandle, "read_mem_32_unaligned");
+	RdRamWrite32 = (ptr_write_mem_32)osal_dynlib_getproc(CoreHandle, "write_mem_32");
+	RdRamWriteU32 = (ptr_write_mem_32_unaligned)osal_dynlib_getproc(CoreHandle, "write_mem_32_unaligned");
+	RdRamRead16 = (ptr_read_mem_16)osal_dynlib_getproc(CoreHandle, "read_mem_16");
+	RdRamWrite16 = (ptr_write_mem_16)osal_dynlib_getproc(CoreHandle, "write_mem_16");
+	RdRamRead8 = (ptr_read_mem_8)osal_dynlib_getproc(CoreHandle, "read_mem_8");
+	RdRamWrite8 = (ptr_write_mem_8)osal_dynlib_getproc(CoreHandle, "write_mem_8");
 
 	/* get function pointers to the configuration functions */
 	ConfigListSections = (ptr_ConfigListSections)osal_dynlib_getproc(CoreHandle, "ConfigListSections");

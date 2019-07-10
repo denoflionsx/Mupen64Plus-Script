@@ -17,7 +17,7 @@
     <ClCompile Include="..\..\src\api\config.c" />
     <ClCompile Include="..\..\src\api\debugger.c" />
     <ClCompile Include="..\..\src\api\frontend.c" />
-    <ClCompile Include="..\..\src\api\rdmem.c" />
+    <ClCompile Include="..\..\src\api\memaccess.c" />
     <ClCompile Include="..\..\src\api\vidext.c" />
     <ClCompile Include="..\..\src\debugger\dbg_breakpoints.c" />
     <ClCompile Include="..\..\src\debugger\dbg_debugger.c" />
@@ -253,7 +253,7 @@
     <ClInclude Include="..\..\src\api\m64p_config.h" />
     <ClInclude Include="..\..\src\api\m64p_debugger.h" />
     <ClInclude Include="..\..\src\api\m64p_frontend.h" />
-    <ClInclude Include="..\..\src\api\m64p_rdmem.h" />
+    <ClInclude Include="..\..\src\api\m64p_memaccess.h" />
     <ClInclude Include="..\..\src\api\m64p_plugin.h" />
     <ClInclude Include="..\..\src\api\m64p_types.h" />
     <ClInclude Include="..\..\src\api\m64p_vidext.h" />

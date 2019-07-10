@@ -124,7 +124,7 @@ del "$(OutDir)"\*.pdb</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\api\m64p_binding_interface.c" />
-    <ClCompile Include="..\..\src\api\m64p_binding_rdmem.c" />
+    <ClCompile Include="..\..\src\api\m64p_binding_memory.c" />
     <ClCompile Include="..\..\src\cheat\cheat.c" />
     <ClCompile Include="..\..\src\internal\compare_core.c" />
     <ClCompile Include="..\..\src\internal\core_interface.c" />
@@ -135,7 +135,7 @@ del "$(OutDir)"\*.pdb</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\api\m64p_binding_interface.h" />
-    <ClInclude Include="..\..\src\api\m64p_binding_rdmem.h" />
+    <ClInclude Include="..\..\src\api\m64p_binding_memory.h" />
     <ClInclude Include="..\..\src\cheat\cheat.h" />
     <ClInclude Include="..\..\src\internal\compare_core.h" />
     <ClInclude Include="..\..\src\internal\core_interface.h" />

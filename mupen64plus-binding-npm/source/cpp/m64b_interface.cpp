@@ -1,6 +1,6 @@
 #include <napi.h>
 #include <m64p_binding_interface.h>
-#include <m64p_binding_rdmem.h>
+#include <m64p_binding_memory.h>
 
 Napi::Number WrapSetCoreLib(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
@@ -99,120 +99,129 @@ Napi::Number WrapRunEmulator(const Napi::CallbackInfo& info) {
     return Napi::Number::New(env, ret);
 }
 
+Napi::Number WrapRunEmulatorAsync(const Napi::CallbackInfo& info) {
+    Napi::Env env = info.Env();
+
+    std::string input = info[0].As<Napi::String>().Utf8Value();
+    int ret = RunEmulatorAsync(input.c_str());
+
+    return Napi::Number::New(env, ret);
+}
+
 // #########################################################
 // ## RD Memory
 // #########################################################
 
-Napi::Number WrapRdMemRead64(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemRead64(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
-    uint64 value = RdMemRead64(addr);
+    uint64 value = MemRead64(addr);
     
     return Napi::Number::New(env, value);
 }
 
-Napi::Number WrapRdMemReadU64(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemReadU64(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
-    uint64 value = RdMemReadU64(addr);
+    uint64 value = MemReadU64(addr);
     
     return Napi::Number::New(env, value);
 }
 
-Napi::Number WrapRdMemWrite64(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemWrite64(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint64 value = info[1].As<Napi::Number>().Int64Value();
-    RdMemWrite64(addr, value);
+    MemWrite64(addr, value);
     
     return Napi::Number::New(env, 0);
 }
 
-Napi::Number WrapRdMemWriteU64(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemWriteU64(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint64 value = info[1].As<Napi::Number>().Int64Value();
-    RdMemWriteU64(addr, value);
+    MemWriteU64(addr, value);
     
     return Napi::Number::New(env, 0);
 }
 
-Napi::Number WrapRdMemRead32(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemRead32(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
-    uint32 value = RdMemRead32(addr);
+    uint32 value = MemRead32(addr);
     
     return Napi::Number::New(env, value);
 }
 
-Napi::Number WrapRdMemReadU32(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemReadU32(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
-    uint32 value = RdMemReadU32(addr);
+    uint32 value = MemReadU32(addr);
     
     return Napi::Number::New(env, value);
 }
 
-Napi::Number WrapRdMemWrite32(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemWrite32(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint32 value = info[1].As<Napi::Number>().Uint32Value();
-    RdMemWrite32(addr, value);
+    MemWrite32(addr, value);
     
     return Napi::Number::New(env, 0);
 }
 
-Napi::Number WrapRdMemWriteU32(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemWriteU32(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint32 value = info[1].As<Napi::Number>().Uint32Value();
-    RdMemWriteU32(addr, value);
+    MemWriteU32(addr, value);
     
     return Napi::Number::New(env, 0);
 }
 
-Napi::Number WrapRdMemRead16(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemRead16(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
-    uint16 value = RdMemRead16(addr);
+    uint16 value = MemRead16(addr);
     
     return Napi::Number::New(env, value);
 }
 
-Napi::Number WrapRdMemWrite16(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemWrite16(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint16 value = info[1].As<Napi::Number>().Uint32Value();
-    RdMemWrite16(addr, value);
+    MemWrite16(addr, value);
     
     return Napi::Number::New(env, 0);
 }
 
-Napi::Number WrapRdMemRead8(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemRead8(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
-    uint8 value = RdMemRead8(addr);
+    uint8 value = MemRead8(addr);
     
     return Napi::Number::New(env, value);
 }
 
-Napi::Number WrapRdMemWrite8(const Napi::CallbackInfo& info) {
+Napi::Number WrapMemWrite8(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint8 value = info[1].As<Napi::Number>().Uint32Value();
-    RdMemWrite8(addr, value);
+    MemWrite8(addr, value);
     
     return Napi::Number::New(env, 0);
 }
@@ -234,9 +243,21 @@ Napi::Object Init(Napi::Env env, Napi::Object exports) {
     
     // Functions
     exports.Set("runEmulator", Napi::Function::New(env, WrapRunEmulator));
+    exports.Set("runEmulatorAsync", Napi::Function::New(env, WrapRunEmulatorAsync));
 
     //RD Memory
-    exports.Set("rdmemRead64", Napi::Function::New(env, WrapRdMemRead64));
+    exports.Set("memRead64", Napi::Function::New(env, WrapMemRead64));
+    exports.Set("memReadU64", Napi::Function::New(env, WrapMemReadU64));
+    exports.Set("memWrite64", Napi::Function::New(env, WrapMemWrite64));
+    exports.Set("memWriteU64", Napi::Function::New(env, WrapMemWriteU64));
+    exports.Set("memRead32", Napi::Function::New(env, WrapMemRead32));
+    exports.Set("memReadU32", Napi::Function::New(env, WrapMemReadU32));
+    exports.Set("memWrite32", Napi::Function::New(env, WrapMemWrite32));
+    exports.Set("memWriteU32", Napi::Function::New(env, WrapMemWriteU32));
+    exports.Set("memRead16", Napi::Function::New(env, WrapMemRead16));
+    exports.Set("memWrite16", Napi::Function::New(env, WrapMemWrite16));
+    exports.Set("memRead8", Napi::Function::New(env, WrapMemRead8));
+    exports.Set("memWrite8", Napi::Function::New(env, WrapMemWrite8));
 
     return exports;
 }

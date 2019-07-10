@@ -429,9 +429,6 @@
     <ClCompile Include="..\..\src\script\lua\m64p_lualib.c">
       <Filter>script\lua</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\api\rdmem.c">
-      <Filter>api</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\script\python\m64p_python_memlib.c">
       <Filter>script\python</Filter>
     </ClCompile>
@@ -446,6 +443,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\script\python\python.c">
       <Filter>script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\api\memaccess.c">
+      <Filter>api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -776,14 +776,14 @@
     <ClInclude Include="..\..\src\api\script\m64p_lua.h">
       <Filter>api\script</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\api\m64p_rdmem.h">
-      <Filter>api</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\api\script\m64p_python.h">
       <Filter>api\script</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\script\python\python.h">
       <Filter>script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\api\m64p_memaccess.h">
+      <Filter>api</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

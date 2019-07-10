@@ -47,7 +47,6 @@ extern int   l_CoreCompareMode;
 extern eCheatMode l_CheatMode;
 extern char      *l_CheatNumList;
 
-extern int EmuMain(void);
+extern int EmuMain(bool async);
 
 #endif /* __MAIN_H__ */
-
