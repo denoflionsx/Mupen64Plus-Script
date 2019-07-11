@@ -45,18 +45,32 @@ int g_CoreAPIVersion;
 ptr_CoreErrorMessage    CoreErrorMessage = NULL;
 
 /* definitions of pointers to Core rdram functions */
-ptr_read_mem_64				RdRamRead64 = NULL;
-ptr_read_mem_64_unaligned     RdRamReadU64 = NULL;
-ptr_write_mem_64				RdRamWrite64 = NULL;
-ptr_write_mem_64_unaligned    RdRamWriteU64 = NULL;
-ptr_read_mem_32				RdRamRead32 = NULL;
-ptr_read_mem_32_unaligned     RdRamReadU32 = NULL;
-ptr_write_mem_32				RdRamWrite32 = NULL;
-ptr_write_mem_32_unaligned    RdRamWriteU32 = NULL;
-ptr_read_mem_16				RdRamRead16 = NULL;
-ptr_write_mem_16				RdRamWrite16 = NULL;
-ptr_read_mem_8				RdRamRead8 = NULL;
-ptr_write_mem_8				RdRamWrite8 = NULL;
+ptr_read_rdram_64				RdRamRead64 = NULL;
+ptr_read_rdram_64_unaligned   RdRamReadU64 = NULL;
+ptr_write_rdram_64			RdRamWrite64 = NULL;
+ptr_write_rdram_64_unaligned  RdRamWriteU64 = NULL;
+ptr_read_rdram_32				RdRamRead32 = NULL;
+ptr_read_rdram_32_unaligned   RdRamReadU32 = NULL;
+ptr_write_rdram_32			RdRamWrite32 = NULL;
+ptr_write_rdram_32_unaligned  RdRamWriteU32 = NULL;
+ptr_read_rdram_16				RdRamRead16 = NULL;
+ptr_write_rdram_16			RdRamWrite16 = NULL;
+ptr_read_rdram_8				RdRamRead8 = NULL;
+ptr_write_rdram_8				RdRamWrite8 = NULL;
+
+/* definitions of pointers to Core rom functions */
+ptr_read_rom_64				RomRead64 = NULL;
+ptr_read_rom_64_unaligned   RomReadU64 = NULL;
+ptr_write_rom_64			RomWrite64 = NULL;
+ptr_write_rom_64_unaligned  RomWriteU64 = NULL;
+ptr_read_rom_32				RomRead32 = NULL;
+ptr_read_rom_32_unaligned   RomReadU32 = NULL;
+ptr_write_rom_32			RomWrite32 = NULL;
+ptr_write_rom_32_unaligned  RomWriteU32 = NULL;
+ptr_read_rom_16				RomRead16 = NULL;
+ptr_write_rom_16			RomWrite16 = NULL;
+ptr_read_rom_8				RomRead8 = NULL;
+ptr_write_rom_8				RomWrite8 = NULL;
 
 /* definitions of pointers to Core front-end functions */
 ptr_CoreStartup         CoreStartup = NULL;
@@ -235,18 +249,32 @@ m64p_error AttachCoreLib(const char *CoreLibFilepath)
 	CoreCheatEnabled = (ptr_CoreCheatEnabled)osal_dynlib_getproc(CoreHandle, "CoreCheatEnabled");
 
 	/* get function pointers to the rdram functions */
-	RdRamRead64 = (ptr_read_mem_64)osal_dynlib_getproc(CoreHandle, "read_mem_64");
-	RdRamReadU64 = (ptr_read_mem_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_mem_64_unaligned");
-	RdRamWrite64 = (ptr_write_mem_64)osal_dynlib_getproc(CoreHandle, "write_mem_64");
-	RdRamWriteU64 = (ptr_write_mem_64_unaligned)osal_dynlib_getproc(CoreHandle, "write_mem_64_unaligned");
-	RdRamRead32 = (ptr_read_mem_32)osal_dynlib_getproc(CoreHandle, "read_mem_32");
-	RdRamReadU32 = (ptr_read_mem_32_unaligned)osal_dynlib_getproc(CoreHandle, "read_mem_32_unaligned");
-	RdRamWrite32 = (ptr_write_mem_32)osal_dynlib_getproc(CoreHandle, "write_mem_32");
-	RdRamWriteU32 = (ptr_write_mem_32_unaligned)osal_dynlib_getproc(CoreHandle, "write_mem_32_unaligned");
-	RdRamRead16 = (ptr_read_mem_16)osal_dynlib_getproc(CoreHandle, "read_mem_16");
-	RdRamWrite16 = (ptr_write_mem_16)osal_dynlib_getproc(CoreHandle, "write_mem_16");
-	RdRamRead8 = (ptr_read_mem_8)osal_dynlib_getproc(CoreHandle, "read_mem_8");
-	RdRamWrite8 = (ptr_write_mem_8)osal_dynlib_getproc(CoreHandle, "write_mem_8");
+	RdRamRead64 = (ptr_read_rdram_64)osal_dynlib_getproc(CoreHandle, "read_rdram_64");
+	RdRamReadU64 = (ptr_read_rdram_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_rdram_64_unaligned");
+	RdRamWrite64 = (ptr_write_rdram_64)osal_dynlib_getproc(CoreHandle, "write_rdram_64");
+	RdRamWriteU64 = (ptr_write_rdram_64_unaligned)osal_dynlib_getproc(CoreHandle, "write_rdram_64_unaligned");
+	RdRamRead32 = (ptr_read_rdram_32)osal_dynlib_getproc(CoreHandle, "read_rdram_32");
+	RdRamReadU32 = (ptr_read_rdram_32_unaligned)osal_dynlib_getproc(CoreHandle, "read_rdram_32_unaligned");
+	RdRamWrite32 = (ptr_write_rdram_32)osal_dynlib_getproc(CoreHandle, "write_rdram_32");
+	RdRamWriteU32 = (ptr_write_rdram_32_unaligned)osal_dynlib_getproc(CoreHandle, "write_rdram_32_unaligned");
+	RdRamRead16 = (ptr_read_rdram_16)osal_dynlib_getproc(CoreHandle, "read_rdram_16");
+	RdRamWrite16 = (ptr_write_rdram_16)osal_dynlib_getproc(CoreHandle, "write_rdram_16");
+	RdRamRead8 = (ptr_read_rdram_8)osal_dynlib_getproc(CoreHandle, "read_rdram_8");
+	RdRamWrite8 = (ptr_write_rdram_8)osal_dynlib_getproc(CoreHandle, "write_rdram_8");
+
+	/* get function pointers to the rom functions */
+	RomRead64 = (ptr_read_rom_64)osal_dynlib_getproc(CoreHandle, "read_rom_64");
+	RomReadU64 = (ptr_read_rom_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_rom_64_unaligned");
+	RomWrite64 = (ptr_write_rom_64)osal_dynlib_getproc(CoreHandle, "write_rom_64");
+	RomWriteU64 = (ptr_write_rom_64_unaligned)osal_dynlib_getproc(CoreHandle, "write_rom_64_unaligned");
+	RomRead32 = (ptr_read_rom_32)osal_dynlib_getproc(CoreHandle, "read_rom_32");
+	RomReadU32 = (ptr_read_rom_32_unaligned)osal_dynlib_getproc(CoreHandle, "read_rom_32_unaligned");
+	RomWrite32 = (ptr_write_rom_32)osal_dynlib_getproc(CoreHandle, "write_rom_32");
+	RomWriteU32 = (ptr_write_rom_32_unaligned)osal_dynlib_getproc(CoreHandle, "write_rom_32_unaligned");
+	RomRead16 = (ptr_read_rom_16)osal_dynlib_getproc(CoreHandle, "read_rom_16");
+	RomWrite16 = (ptr_write_rom_16)osal_dynlib_getproc(CoreHandle, "write_rom_16");
+	RomRead8 = (ptr_read_rom_8)osal_dynlib_getproc(CoreHandle, "read_rom_8");
+	RomWrite8 = (ptr_write_rom_8)osal_dynlib_getproc(CoreHandle, "write_rom_8");
 
 	/* get function pointers to the configuration functions */
 	ConfigListSections = (ptr_ConfigListSections)osal_dynlib_getproc(CoreHandle, "ConfigListSections");
@@ -329,6 +357,19 @@ m64p_error DetachCoreLib(void)
 	RdRamWrite16 = NULL;
 	RdRamRead8 = NULL;
 	RdRamWrite8 = NULL;
+
+	RomRead64 = NULL;
+	RomReadU64 = NULL;
+	RomWrite64 = NULL;
+	RomWriteU64 = NULL;
+	RomRead32 = NULL;
+	RomReadU32 = NULL;
+	RomWrite32 = NULL;
+	RomWriteU32 = NULL;
+	RomRead16 = NULL;
+	RomWrite16 = NULL;
+	RomRead8 = NULL;
+	RomWrite8 = NULL;
 
 	ConfigListSections = NULL;
 	ConfigOpenSection = NULL;

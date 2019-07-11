@@ -43,64 +43,133 @@ typedef uint32_t u32;
 typedef  int64_t s64;
 typedef uint64_t u64;
 
-typedef uint64 (*ptr_read_mem_64)(uint32 addr);
+
+// #########################################################
+// ## RDRam Memory
+// #########################################################
+
+typedef uint64 (*ptr_read_rdram_64)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint64 CALL read_mem_64(uint32 addr);
+EXPORT uint64 CALL read_rdram_64(uint32 addr);
 #endif
 
-typedef uint64(*ptr_read_mem_64_unaligned)(uint32 addr);
+typedef uint64(*ptr_read_rdram_64_unaligned)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint64 CALL read_mem_64_unaligned(uint32 addr);
+EXPORT uint64 CALL read_rdram_64_unaligned(uint32 addr);
 #endif
 
-typedef void(*ptr_write_mem_64)(uint32 addr, uint64 value);
+typedef void(*ptr_write_rdram_64)(uint32 addr, uint64 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_mem_64(uint32 addr, uint64 value);
+EXPORT void CALL write_rdram_64(uint32 addr, uint64 value);
 #endif
 
-typedef void(*ptr_write_mem_64_unaligned)(uint32 addr, uint64 value);
+typedef void(*ptr_write_rdram_64_unaligned)(uint32 addr, uint64 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_mem_64_unaligned(uint32 addr, uint64 value);
+EXPORT void CALL write_rdram_64_unaligned(uint32 addr, uint64 value);
 #endif
 
-typedef uint32(*ptr_read_mem_32)(uint32 addr);
+typedef uint32(*ptr_read_rdram_32)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint32 CALL read_mem_32(uint32 addr);
+EXPORT uint32 CALL read_rdram_32(uint32 addr);
 #endif
 
-typedef uint32(*ptr_read_mem_32_unaligned)(uint32 addr);
+typedef uint32(*ptr_read_rdram_32_unaligned)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint32 CALL read_mem_32_unaligned(uint32 addr);
+EXPORT uint32 CALL read_rdram_32_unaligned(uint32 addr);
 #endif
 
-typedef void(*ptr_write_mem_32)(uint32 addr, uint32 value);
+typedef void(*ptr_write_rdram_32)(uint32 addr, uint32 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_mem_32(uint32 addr, uint32 value);
+EXPORT void CALL write_rdram_32(uint32 addr, uint32 value);
 #endif
 
-typedef void(*ptr_write_mem_32_unaligned)(uint32 addr, uint32 value);
+typedef void(*ptr_write_rdram_32_unaligned)(uint32 addr, uint32 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_mem_32_unaligned(uint32 addr, uint32 value);
+EXPORT void CALL write_rdram_32_unaligned(uint32 addr, uint32 value);
 #endif
 
-typedef uint16(*ptr_read_mem_16)(uint32 addr);
+typedef uint16(*ptr_read_rdram_16)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint16 CALL read_mem_16(uint32 addr);
+EXPORT uint16 CALL read_rdram_16(uint32 addr);
 #endif
 
-typedef void(*ptr_write_mem_16)(uint32 addr, uint16 value);
+typedef void(*ptr_write_rdram_16)(uint32 addr, uint16 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_mem_16(uint32 addr, uint16 value);
+EXPORT void CALL write_rdram_16(uint32 addr, uint16 value);
 #endif
 
-typedef uint8(*ptr_read_mem_8)(uint32 addr);
+typedef uint8(*ptr_read_rdram_8)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT uint8 CALL read_mem_8(uint32 addr);
+EXPORT uint8 CALL read_rdram_8(uint32 addr);
 #endif
 
-typedef void(*ptr_write_mem_8)(uint32 addr, uint8 value);
+typedef void(*ptr_write_rdram_8)(uint32 addr, uint8 value);
 #if defined(M64P_CORE_PROTOTYPES)
-EXPORT void CALL write_mem_8(uint32 addr, uint8 value);
+EXPORT void CALL write_rdram_8(uint32 addr, uint8 value);
+#endif
+
+// #########################################################
+// ## Rom Memory
+// #########################################################
+
+typedef uint64(*ptr_read_rom_64)(uint32 addr);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT uint64 CALL read_rom_64(uint32 addr);
+#endif
+
+typedef uint64(*ptr_read_rom_64_unaligned)(uint32 addr);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT uint64 CALL read_rom_64_unaligned(uint32 addr);
+#endif
+
+typedef void(*ptr_write_rom_64)(uint32 addr, uint64 value);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL write_rom_64(uint32 addr, uint64 value);
+#endif
+
+typedef void(*ptr_write_rom_64_unaligned)(uint32 addr, uint64 value);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL write_rom_64_unaligned(uint32 addr, uint64 value);
+#endif
+
+typedef uint32(*ptr_read_rom_32)(uint32 addr);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT uint32 CALL read_rom_32(uint32 addr);
+#endif
+
+typedef uint32(*ptr_read_rom_32_unaligned)(uint32 addr);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT uint32 CALL read_rom_32_unaligned(uint32 addr);
+#endif
+
+typedef void(*ptr_write_rom_32)(uint32 addr, uint32 value);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL write_rom_32(uint32 addr, uint32 value);
+#endif
+
+typedef void(*ptr_write_rom_32_unaligned)(uint32 addr, uint32 value);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL write_rom_32_unaligned(uint32 addr, uint32 value);
+#endif
+
+typedef uint16(*ptr_read_rom_16)(uint32 addr);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT uint16 CALL read_rom_16(uint32 addr);
+#endif
+
+typedef void(*ptr_write_rom_16)(uint32 addr, uint16 value);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL write_rom_16(uint32 addr, uint16 value);
+#endif
+
+typedef uint8(*ptr_read_rom_8)(uint32 addr);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT uint8 CALL read_rom_8(uint32 addr);
+#endif
+
+typedef void(*ptr_write_rom_8)(uint32 addr, uint8 value);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL write_rom_8(uint32 addr, uint8 value);
 #endif
 
 #ifdef __cplusplus

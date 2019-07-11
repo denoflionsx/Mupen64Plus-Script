@@ -37,54 +37,54 @@ rl.on('line', function(line) {
     switch(lines[0]) {
         case '/help':
             console.log('Available Commands:');
-            console.log('/memRead64 [address]');
-            console.log('/memReadU64 [address]');
-            console.log('/memWrite64 [address] [value]');
-            console.log('/memWriteU64 [address] [value]');
-            console.log('/memRead32 [address]');
-            console.log('/memReadU32 [address]');
-            console.log('/memWrite32 [address] [value]');
-            console.log('/memWriteU32 [address] [value]');
-            console.log('/memRead16 [address]');
-            console.log('/memWrite16 [address] [value]');
-            console.log('/memRead8 [address]');
-            console.log('/memWrite8 [address] [value]');
+            console.log('/rdramRead64 [address]');
+            console.log('/rdramReadU64 [address]');
+            console.log('/rdramWrite64 [address] [value]');
+            console.log('/rdramWriteU64 [address] [value]');
+            console.log('/rdramRead32 [address]');
+            console.log('/rdramReadU32 [address]');
+            console.log('/rdramWrite32 [address] [value]');
+            console.log('/rdramWriteU32 [address] [value]');
+            console.log('/rdramRead16 [address]');
+            console.log('/rdramWrite16 [address] [value]');
+            console.log('/rdramRead8 [address]');
+            console.log('/rdramWrite8 [address] [value]');
             break;
-        case '/memRead64':
-            console.log(m64p.memRead64(parseInt(lines[1])));
+        case '/rdramRead64':
+            console.log(m64p.rdramRead64(parseInt(lines[1])));
             break;
-        case '/memReadU64':
-            console.log(m64p.memReadU64(parseInt(lines[1])));
+        case '/rdramReadU64':
+            console.log(m64p.rdramReadU64(parseInt(lines[1])));
             break;
-        case '/memWrite64':
-            console.log(m64p.memWrite64(parseInt(lines[1]), parseInt(lines[2])));
+        case '/rdramWrite64':
+            console.log(m64p.rdramWrite64(parseInt(lines[1]), parseInt(lines[2])));
             break;
-        case '/memWriteU64':
-            console.log(m64p.memWriteU64(parseInt(lines[1]), parseInt(lines[2])));
+        case '/rdramWriteU64':
+            console.log(m64p.rdramWriteU64(parseInt(lines[1]), parseInt(lines[2])));
             break;
-        case '/memRead32':
-            console.log(m64p.memRead32(parseInt(lines[1])));
+        case '/rdramRead32':
+            console.log(m64p.rdramRead32(parseInt(lines[1])));
             break;
-        case '/memReadU32':
-            console.log(m64p.memReadU32(parseInt(lines[1])));
+        case '/rdramReadU32':
+            console.log(m64p.rdramReadU32(parseInt(lines[1])));
             break;
-        case '/memWrite32':
-            console.log(m64p.memWrite32(parseInt(lines[1]), parseInt(lines[2])));
+        case '/rdramWrite32':
+            console.log(m64p.rdramWrite32(parseInt(lines[1]), parseInt(lines[2])));
             break;
-        case '/memWriteU32':
-            console.log(m64p.memWriteU32(parseInt(lines[1]), parseInt(lines[2])));
+        case '/rdramWriteU32':
+            console.log(m64p.rdramWriteU32(parseInt(lines[1]), parseInt(lines[2])));
             break;
-        case '/memRead16':
-            console.log(m64p.memRead16(parseInt(lines[1])));
+        case '/rdramRead16':
+            console.log(m64p.rdramRead16(parseInt(lines[1])));
             break;
-        case '/memWrite16':
-            console.log(m64p.memWrite16(parseInt(lines[1]), parseInt(lines[2])));
+        case '/rdramWrite16':
+            console.log(m64p.rdramWrite16(parseInt(lines[1]), parseInt(lines[2])));
             break;
-        case '/memRead8':
-            console.log(m64p.memRead8(parseInt(lines[1])));
+        case '/rdramRead8':
+            console.log(m64p.rdramRead8(parseInt(lines[1])));
             break;
-        case '/memWrite8':
-            console.log(m64p.memWrite8(parseInt(lines[1]), parseInt(lines[2])));
+        case '/rdramWrite8':
+            console.log(m64p.rdramWrite8(parseInt(lines[1]), parseInt(lines[2])));
             break;
         case '/exit':
             console.log('Ending Emulation...');

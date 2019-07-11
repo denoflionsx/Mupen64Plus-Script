@@ -7,7 +7,9 @@
         'dependencies': [ "<!(node -p \"require('node-addon-api').gyp\")" ],
         'libraries': [ "<(module_root_dir)/source/mupen64plus-binding-shell.lib" ],
         "sources": [ 
+            "source/cpp/m64b_node.cpp",
             "source/cpp/m64b_interface.cpp",
+            "source/cpp/m64b_memory.cpp"
         ],
 
         'include_dirs': [

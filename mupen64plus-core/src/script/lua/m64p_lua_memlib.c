@@ -29,7 +29,7 @@ static const char *memTypeName[] = {
 static int mem_meta_index(lua_State *L) {
 	if(lua_isinteger(L, 2)) {
 		uint32 addr = luaL_checkinteger(L, 2);
-		lua_pushinteger(L, read_mem_8(addr));
+		lua_pushinteger(L, read_rdram_8(addr));
 	}
 	else {
 		lua_getfield(L, LUA_REGISTRYINDEX, "memory_methods"); //-1: methods
@@ -44,7 +44,7 @@ static int mem_meta_newindex(lua_State *L) {
 	if(lua_isinteger(L, 2)) {
 		uint32 addr = luaL_checkinteger(L, 2);
 		uint8  val  = luaL_checkinteger(L, 3);
-		write_mem_8(addr, val);
+		write_rdram_8(addr, val);
 		return 0;
 	}
 	else if(lua_tostring(L, 2))
@@ -81,7 +81,7 @@ static int mem_method_read(lua_State *L) {
 			luaL_Buffer buf;
 			luaL_buffinitsize(L, &buf, len);
 			int i; for(i=0; i<len; i++) {
-				luaL_addchar(&buf, read_mem_8(addr + i));
+				luaL_addchar(&buf, read_rdram_8(addr + i));
 			}
 			luaL_pushresultsize(&buf, len);
 		}
@@ -95,37 +95,37 @@ static int mem_method_read(lua_State *L) {
 
 		switch(tp) {
 			case MEM_TYPE_S8:
-				lua_pushinteger(L, (s8)read_mem_8(addr));
+				lua_pushinteger(L, (s8)read_rdram_8(addr));
 				break;
 
 			case MEM_TYPE_U8:
-				lua_pushinteger(L, (u8)read_mem_8(addr));
+				lua_pushinteger(L, (u8)read_rdram_8(addr));
 				break;
 
 			case MEM_TYPE_S16:
-				lua_pushinteger(L, (s16)read_mem_16(addr));
+				lua_pushinteger(L, (s16)read_rdram_16(addr));
 				break;
 
 			case MEM_TYPE_U16:
-				lua_pushinteger(L, (u16)read_mem_16(addr));
+				lua_pushinteger(L, (u16)read_rdram_16(addr));
 				break;
 
 			case MEM_TYPE_S32:
-				lua_pushinteger(L, (s32)read_mem_32(addr));
+				lua_pushinteger(L, (s32)read_rdram_32(addr));
 				break;
 
 			case MEM_TYPE_U32:
-				lua_pushinteger(L, (u32)read_mem_32(addr));
+				lua_pushinteger(L, (u32)read_rdram_32(addr));
 				break;
 
 			case MEM_TYPE_FLOAT: {
-				u32 num = read_mem_32_unaligned(addr);
+				u32 num = read_rdram_32_unaligned(addr);
 				lua_pushnumber(L, *(float*)&num);
 				break;
 			}
 
 			case MEM_TYPE_DOUBLE: {
-				u64 num = read_mem_64_unaligned(addr);
+				u64 num = read_rdram_64_unaligned(addr);
 				lua_pushnumber(L, *(double*)&num);
 				break;
 			}
@@ -151,45 +151,45 @@ static int mem_method_write(lua_State *L) {
 
 	switch(tp) {
 		case MEM_TYPE_S8:
-			write_mem_8(addr, (s8)luaL_checkinteger(L, 4));
+			write_rdram_8(addr, (s8)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_U8:
-			write_mem_8(addr, (u8)luaL_checkinteger(L, 4));
+			write_rdram_8(addr, (u8)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_S16:
-			write_mem_16(addr, (s16)luaL_checkinteger(L, 4));
+			write_rdram_16(addr, (s16)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_U16:
-			write_mem_16(addr, (u16)luaL_checkinteger(L, 4));
+			write_rdram_16(addr, (u16)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_S32:
-			write_mem_32_unaligned(addr, (s32)luaL_checkinteger(L, 4));
+			write_rdram_32_unaligned(addr, (s32)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_U32:
-			write_mem_32_unaligned(addr, (u32)luaL_checkinteger(L, 4));
+			write_rdram_32_unaligned(addr, (u32)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_FLOAT: {
 			float num = (float)luaL_checknumber(L, 4);
-			write_mem_32_unaligned(addr, *(u32*)&num);
+			write_rdram_32_unaligned(addr, *(u32*)&num);
 			break;
 		}
 
 		case MEM_TYPE_DOUBLE: {
 			double num = (double)luaL_checknumber(L, 4);
-			write_mem_64_unaligned(addr, *(u64*)&num);
+			write_rdram_64_unaligned(addr, *(u64*)&num);
 			break;
 		}
 
 		case MEM_TYPE_STRING: {
 			size_t len;
 			const char *str = luaL_checklstring(L, 4, &len);
-			int i; for (i = 0; i<len; i++) write_mem_8(addr + i, str[i]);
+			int i; for (i = 0; i<len; i++) write_rdram_8(addr + i, str[i]);
 			break;
 		}
 

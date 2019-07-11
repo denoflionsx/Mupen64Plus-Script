@@ -92,6 +92,10 @@ EXPORT int CALL RunEmulatorAsync(const char *romFile) {
 	return EmuMain(true);
 }
 
+EXPORT void CALL PauseEmulator(void) { (*CoreDoCommand)(M64CMD_PAUSE, 0, NULL); }
+EXPORT void CALL ResumeEmulator(void) { (*CoreDoCommand)(M64CMD_RESUME, 0, NULL); }
+EXPORT void CALL StopEmulator(void) { (*CoreDoCommand)(M64CMD_STOP, 0, NULL); }
+
 /*
 static m64p_error ParseCommandLineFinal(int argc, const char **argv)
 {

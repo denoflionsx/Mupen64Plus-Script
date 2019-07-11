@@ -20,5 +20,8 @@ EXPORT void CALL SetVerboseLog(int boolVal);
 
 EXPORT int CALL RunEmulator(const char *romFile);
 EXPORT int CALL RunEmulatorAsync(const char *romFile);
+EXPORT void CALL PauseEmulator(void);
+EXPORT void CALL ResumeEmulator(void);
+EXPORT void CALL StopEmulator(void);
 
 #endif
