@@ -1,6 +1,4 @@
 #include <m64p_binding_memory.h>
-#include <iostream>
-using namespace std;
 #include "m64b_memory.h"
 
 // #########################################################
@@ -12,7 +10,6 @@ Napi::Number m64b_memory::WrapRdRamRead64(const Napi::CallbackInfo& info) {
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint64 value = rdramRead64(addr);
-    cout << "value: " << value << endl;
 
     return Napi::Number::New(env, value);
 }
@@ -22,7 +19,6 @@ Napi::Number m64b_memory::WrapRdRamReadU64(const Napi::CallbackInfo& info) {
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint64 value = rdramReadU64(addr);
-    cout << "value: " << value << endl;
     
     return Napi::Number::New(env, value);
 }
@@ -52,7 +48,6 @@ Napi::Number m64b_memory::WrapRdRamRead32(const Napi::CallbackInfo& info) {
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint32 value = rdramRead32(addr);
-    cout << "value: " << value << endl;
     
     return Napi::Number::New(env, value);
 }
@@ -62,7 +57,6 @@ Napi::Number m64b_memory::WrapRdRamReadU32(const Napi::CallbackInfo& info) {
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint32 value = rdramReadU32(addr);
-    cout << "value: " << value << endl;
     
     return Napi::Number::New(env, value);
 }
@@ -92,7 +86,6 @@ Napi::Number m64b_memory::WrapRdRamRead16(const Napi::CallbackInfo& info) {
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint16 value = rdramRead16(addr);
-    cout << "value: " << value << endl;
     
     return Napi::Number::New(env, value);
 }
@@ -112,7 +105,6 @@ Napi::Number m64b_memory::WrapRdRamRead8(const Napi::CallbackInfo& info) {
 
     uint32 addr = info[0].As<Napi::Number>().Uint32Value();
     uint8 value = rdramRead8(addr);
-    cout << "value: " << value << endl;
     
     return Napi::Number::New(env, value);
 }
@@ -136,7 +128,6 @@ Napi::Number m64b_memory::WrapRomRead64(const Napi::CallbackInfo& info) {
 
 	uint32 addr = info[0].As<Napi::Number>().Uint32Value();
 	uint64 value = romRead64(addr);
-	cout << "value: " << value << endl;
 
 	return Napi::Number::New(env, value);
 }
@@ -146,7 +137,6 @@ Napi::Number m64b_memory::WrapRomReadU64(const Napi::CallbackInfo& info) {
 
 	uint32 addr = info[0].As<Napi::Number>().Uint32Value();
 	uint64 value = romReadU64(addr);
-	cout << "value: " << value << endl;
 
 	return Napi::Number::New(env, value);
 }
@@ -176,7 +166,6 @@ Napi::Number m64b_memory::WrapRomRead32(const Napi::CallbackInfo& info) {
 
 	uint32 addr = info[0].As<Napi::Number>().Uint32Value();
 	uint32 value = romRead32(addr);
-	cout << "value: " << value << endl;
 
 	return Napi::Number::New(env, value);
 }
@@ -186,7 +175,6 @@ Napi::Number m64b_memory::WrapRomReadU32(const Napi::CallbackInfo& info) {
 
 	uint32 addr = info[0].As<Napi::Number>().Uint32Value();
 	uint32 value = romReadU32(addr);
-	cout << "value: " << value << endl;
 
 	return Napi::Number::New(env, value);
 }
@@ -216,7 +204,6 @@ Napi::Number m64b_memory::WrapRomRead16(const Napi::CallbackInfo& info) {
 
 	uint32 addr = info[0].As<Napi::Number>().Uint32Value();
 	uint16 value = romRead16(addr);
-	cout << "value: " << value << endl;
 
 	return Napi::Number::New(env, value);
 }
@@ -236,7 +223,6 @@ Napi::Number m64b_memory::WrapRomRead8(const Napi::CallbackInfo& info) {
 
 	uint32 addr = info[0].As<Napi::Number>().Uint32Value();
 	uint8 value = romRead8(addr);
-	cout << "value: " << value << endl;
 
 	return Napi::Number::New(env, value);
 }
