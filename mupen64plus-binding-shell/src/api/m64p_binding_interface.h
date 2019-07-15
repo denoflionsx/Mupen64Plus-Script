@@ -24,4 +24,6 @@ EXPORT void CALL PauseEmulator(void);
 EXPORT void CALL ResumeEmulator(void);
 EXPORT void CALL StopEmulator(void);
 
+EXPORT void CALL SetFrameCallback(void* ParamPtr);
+
 #endif

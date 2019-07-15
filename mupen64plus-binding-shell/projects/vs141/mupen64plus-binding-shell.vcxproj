@@ -123,6 +123,7 @@ del "$(OutDir)"\*.pdb</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\api\m64p_binding_core.c" />
     <ClCompile Include="..\..\src\api\m64p_binding_interface.c" />
     <ClCompile Include="..\..\src\api\m64p_binding_memory.c" />
     <ClCompile Include="..\..\src\cheat\cheat.c" />
@@ -134,6 +135,7 @@ del "$(OutDir)"\*.pdb</Command>
     <ClCompile Include="..\..\src\plugin\plugin.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\api\m64p_binding_core.h" />
     <ClInclude Include="..\..\src\api\m64p_binding_interface.h" />
     <ClInclude Include="..\..\src\api\m64p_binding_memory.h" />
     <ClInclude Include="..\..\src\cheat\cheat.h" />

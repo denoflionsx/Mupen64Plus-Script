@@ -48,6 +48,11 @@ typedef uint64_t u64;
 // ## RDRam Memory
 // #########################################################
 
+typedef const char*(*ptr_read_rdram_buffer)(uint32 addr, uint32 length);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT const unsigned char* CALL read_rdram_buffer(uint32 addr, uint32 length);
+#endif
+
 typedef uint64 (*ptr_read_rdram_64)(uint32 addr);
 #if defined(M64P_CORE_PROTOTYPES)
 EXPORT uint64 CALL read_rdram_64(uint32 addr);
@@ -170,6 +175,11 @@ EXPORT uint8 CALL read_rom_8(uint32 addr);
 typedef void(*ptr_write_rom_8)(uint32 addr, uint8 value);
 #if defined(M64P_CORE_PROTOTYPES)
 EXPORT void CALL write_rom_8(uint32 addr, uint8 value);
+#endif
+
+typedef void(*ptr_savestates_refresh_hack)(void);
+#if defined(M64P_CORE_PROTOTYPES)
+EXPORT void CALL savestates_refresh_hack(void);
 #endif
 
 #ifdef __cplusplus

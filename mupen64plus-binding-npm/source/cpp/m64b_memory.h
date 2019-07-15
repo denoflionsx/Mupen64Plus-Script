@@ -1,46 +1,57 @@
+#ifndef _M64B_MEMORY_
+#define _M64B_MEMORY_
+
 #include <napi.h>
+using namespace Napi;
 
-namespace m64b_memory 
-{
+// #########################################################
+// ## RDRam Memory
+// #########################################################
 
-    // #########################################################
-    // ## RDRam Memory
-    // #########################################################
+Uint8Array npmRdRamReadBuffer(const CallbackInfo& info);
+Number npmRdRamRead64(const CallbackInfo& info);
+Number npmRdRamReadU64(const CallbackInfo& info);
+Number npmRdRamRead32(const CallbackInfo& info);
+Number npmRdRamReadU32(const CallbackInfo& info);
+Number npmRdRamRead16(const CallbackInfo& info);
+Number npmRdRamRead8(const CallbackInfo& info);
 
-    Napi::Number WrapRdRamRead64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamReadU64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamWrite64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamWriteU64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamRead32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamReadU32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamWrite32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamWriteU32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamRead16(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamWrite16(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamRead8(const Napi::CallbackInfo& info);
-    Napi::Number WrapRdRamWrite8(const Napi::CallbackInfo& info);
+Value npmRdRamWriteBuffer(const CallbackInfo& info);
+Value npmRdRamWrite64(const CallbackInfo& info);
+Value npmRdRamWriteU64(const CallbackInfo& info);
+Value npmRdRamWrite32(const CallbackInfo& info);
+Value npmRdRamWriteU32(const CallbackInfo& info);
+Value npmRdRamWrite16(const CallbackInfo& info);
+Value npmRdRamWrite8(const CallbackInfo& info);
 
-    // #########################################################
-    // ## Rom Memory
-    // #########################################################
+// #########################################################
+// ## Rom Memory
+// #########################################################
 
-    Napi::Number WrapRomRead64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomReadU64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomWrite64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomWriteU64(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomRead32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomReadU32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomWrite32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomWriteU32(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomRead16(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomWrite16(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomRead8(const Napi::CallbackInfo& info);
-    Napi::Number WrapRomWrite8(const Napi::CallbackInfo& info);
+Number npmRomRead64(const CallbackInfo& info);
+Number npmRomReadU64(const CallbackInfo& info);
+Number npmRomRead32(const CallbackInfo& info);
+Number npmRomReadU32(const CallbackInfo& info);
+Number npmRomRead16(const CallbackInfo& info);
+Number npmRomRead8(const CallbackInfo& info);
 
-    // #########################################################
-    // ## NAPI Export
-    // #########################################################
+Value npmRomWrite64(const CallbackInfo& info);
+Value npmRomWriteU64(const CallbackInfo& info);
+Value npmRomWrite32(const CallbackInfo& info);
+Value npmRomWriteU32(const CallbackInfo& info);
+Value npmRomWrite16(const CallbackInfo& info);
+Value npmRomWrite8(const CallbackInfo& info);
 
-    Napi::Object Init(Napi::Env env, Napi::Object exports);
+// #########################################################
+// ## SaveStates
+// #########################################################
 
-}
+Value npmSaveStatesRefreshHack(const CallbackInfo& info);
+
+// #########################################################
+// ## NAPI Export
+// #########################################################
+
+Object M64B_Memory_Init(Env env, Object exports);
+
+#endif

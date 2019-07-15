@@ -1488,3 +1488,31 @@ void savestates_deinit(void)
     SDL_DestroyMutex(savestates_lock);
     savestates_clear_job();
 }
+
+extern void savestates_hack_refresh(void)
+{
+
+/*
+	const char* ssPath = get_savestatepath();
+	const char* fp = malloc(sizeof(ssPath) + 15);
+	strcpy(fp, ssPath);
+	strcat(fp, "/modloader.hack");
+	printf("SaveState expected as file: %s(ENDHERE)\n", fp);
+	savestates_save_m64p(fp);
+	savestates_load_m64p(fp);
+*/
+
+	update_x86_rounding_mode(*r4300_cp1_fcr31());
+	uint32_t pc = *r4300_pc();
+	savestates_load_set_pc(pc);
+	*r4300_last_addr() = *r4300_pc(pc);
+
+	//printf("Registers set!");
+
+	char queue[1024];
+	int queuelength;
+	queuelength = save_eventqueue_infos(queue);
+	to_little_endian_buffer(queue, 4, 256);
+	load_eventqueue_infos(queue);
+	//printf("Interupt cleared!");
+}

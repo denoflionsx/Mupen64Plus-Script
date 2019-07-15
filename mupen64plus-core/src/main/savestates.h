@@ -53,5 +53,7 @@ unsigned int savestates_get_slot(void);
 void savestates_set_autoinc_slot(int b);
 void savestates_inc_slot(void);
 
+extern void savestates_hack_refresh(void);
+
 #endif /* __SAVESTAVES_H__ */
 

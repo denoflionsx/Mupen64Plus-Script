@@ -42,7 +42,7 @@ EXPORT void CALL SetPluginRSP(const char *input) {
 }
 
 // #########################################################
-// ## Functions
+// ## General Functions
 // #########################################################
 
 EXPORT void CALL SetOsdEnabled(int boolVal) {
@@ -82,6 +82,10 @@ EXPORT void CALL SetVerboseLog(int boolVal) {
 	g_Verbose = boolVal;
 }
 
+// #########################################################
+// ## Special Functions
+// #########################################################
+
 EXPORT int CALL RunEmulator(const char *romFile) {
 	l_ROMFilepath = strdup(romFile);
 	return EmuMain(false);
@@ -95,6 +99,8 @@ EXPORT int CALL RunEmulatorAsync(const char *romFile) {
 EXPORT void CALL PauseEmulator(void) { (*CoreDoCommand)(M64CMD_PAUSE, 0, NULL); }
 EXPORT void CALL ResumeEmulator(void) { (*CoreDoCommand)(M64CMD_RESUME, 0, NULL); }
 EXPORT void CALL StopEmulator(void) { (*CoreDoCommand)(M64CMD_STOP, 0, NULL); }
+
+EXPORT void CALL SetFrameCallback(void* ParamPtr) { (*CoreDoCommand)(M64CMD_SET_FRAME_CALLBACK, 0, ParamPtr); }
 
 /*
 static m64p_error ParseCommandLineFinal(int argc, const char **argv)

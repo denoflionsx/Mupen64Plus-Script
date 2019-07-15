@@ -42,17 +42,18 @@ extern m64p_dynlib_handle      CoreHandle;
 extern ptr_CoreErrorMessage    CoreErrorMessage;
 
 /* declarations of pointers to Core rdram functions */
+extern ptr_read_rdram_buffer			RdRamReadBuffer;
 extern ptr_read_rdram_64				RdRamRead64;
-extern ptr_read_rdram_64_unaligned	RdRamReadU64;
+extern ptr_read_rdram_64_unaligned		RdRamReadU64;
 extern ptr_write_rdram_64				RdRamWrite64;
-extern ptr_write_rdram_64_unaligned	RdRamWriteU64;
+extern ptr_write_rdram_64_unaligned		RdRamWriteU64;
 extern ptr_read_rdram_32				RdRamRead32;
-extern ptr_read_rdram_32_unaligned	RdRamReadU32;
+extern ptr_read_rdram_32_unaligned		RdRamReadU32;
 extern ptr_write_rdram_32				RdRamWrite32;
-extern ptr_write_rdram_32_unaligned	RdRamWriteU32;
+extern ptr_write_rdram_32_unaligned		RdRamWriteU32;
 extern ptr_read_rdram_16				RdRamRead16;
 extern ptr_write_rdram_16				RdRamWrite16;
-extern ptr_read_rdram_8				RdRamRead8;
+extern ptr_read_rdram_8					RdRamRead8;
 extern ptr_write_rdram_8				RdRamWrite8;
 
 /* declarations of pointers to Core Rom functions */
@@ -68,6 +69,9 @@ extern ptr_read_rom_16				RomRead16;
 extern ptr_write_rom_16				RomWrite16;
 extern ptr_read_rom_8				RomRead8;
 extern ptr_write_rom_8				RomWrite8;
+
+/* declarations of pointers to Core SaveState functions */
+extern ptr_savestates_refresh_hack		SaveStatesHackRefresh;
 
 /* declarations of pointers to Core front-end functions */
 extern ptr_CoreStartup         CoreStartup;

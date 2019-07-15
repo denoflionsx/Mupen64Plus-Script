@@ -1,85 +1,60 @@
-#include <napi.h>
-#include <m64p_binding_interface.h>
 #include "m64b_interface.h"
+#include <m64p_binding_interface.h>
 
 // #########################################################
 // ## Paths
 // #########################################################
 
-Napi::Number m64b_interface::WrapSetCoreLib(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetCoreLib(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetCoreLib(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetConfigDir(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetConfigDir(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetConfigDir(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetDataDir(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetDataDir(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetDataDir(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetPluginDir(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetPluginDir(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetPluginDir(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetPluginAudio(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetPluginAudio(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetPluginAudio(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetPluginGFX(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetPluginGFX(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetPluginGFX(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetPluginInput(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetPluginInput(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetPluginInput(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapSetPluginRSP(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Value npmSetPluginRSP(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     SetPluginRSP(input.c_str());
-
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
 // #########################################################
-// ## Functions
+// ## General Functions
 // #########################################################
 
 /*
@@ -90,64 +65,61 @@ EXPORT void CALL SetResolution(int xres, int yres);
 EXPORT void CALL SetVerboseLog(int boolVal);
 */
 
-Napi::Number m64b_interface::WrapRunEmulator(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
+// #########################################################
+// ## Special Functions
+// #########################################################
 
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Number npmRunEmulator(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     int ret = RunEmulator(input.c_str());
-
-    return Napi::Number::New(env, ret);
+    return Number::New(info.Env(), ret);
 }
 
-Napi::Number m64b_interface::WrapRunEmulatorAsync(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-
-    std::string input = info[0].As<Napi::String>().Utf8Value();
+Number npmRunEmulatorAsync(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
     int ret = RunEmulatorAsync(input.c_str());
-
-    return Napi::Number::New(env, ret);
+    return Number::New(info.Env(), ret);
 }
 
-Napi::Number m64b_interface::WrapPauseEmulator(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
+Value npmPauseEmulator(const CallbackInfo& info) {
     PauseEmulator();
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapResumeEmulator(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
+Value npmResumeEmulator(const CallbackInfo& info) {
     ResumeEmulator();
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
-Napi::Number m64b_interface::WrapStopEmulator(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
+Value npmStopEmulator(const CallbackInfo& info) {
     StopEmulator();
-    return Napi::Number::New(env, 0);
+    return info.Env().Undefined();
 }
 
 // #########################################################
 // ## NAPI Export
 // #########################################################
 
-Napi::Object m64b_interface::Init(Napi::Env env, Napi::Object exports) {
+Object M64B_Interface_Init(Env env, Object exports) {
     
     // Paths
-    exports.Set("setCoreLib", Napi::Function::New(env, m64b_interface::WrapSetCoreLib));
-    exports.Set("setConfigDir", Napi::Function::New(env, m64b_interface::WrapSetConfigDir));
-    exports.Set("setDataDir", Napi::Function::New(env, m64b_interface::WrapSetDataDir));    
-    exports.Set("setPluginDir", Napi::Function::New(env, m64b_interface::WrapSetPluginDir));
-    exports.Set("setPluginAudio", Napi::Function::New(env, m64b_interface::WrapSetPluginAudio));
-    exports.Set("setPluginGFX", Napi::Function::New(env, m64b_interface::WrapSetPluginGFX));
-    exports.Set("setPluginInput", Napi::Function::New(env, m64b_interface::WrapSetPluginInput));
-    exports.Set("setPluginRSP", Napi::Function::New(env, m64b_interface::WrapSetPluginRSP));
+    exports.Set("setCoreLib", Function::New(env, npmSetCoreLib));
+    exports.Set("setConfigDir", Function::New(env, npmSetConfigDir));
+    exports.Set("setDataDir", Function::New(env, npmSetDataDir));    
+    exports.Set("setPluginDir", Function::New(env, npmSetPluginDir));
+    exports.Set("setPluginAudio", Function::New(env, npmSetPluginAudio));
+    exports.Set("setPluginGFX", Function::New(env, npmSetPluginGFX));
+    exports.Set("setPluginInput", Function::New(env, npmSetPluginInput));
+    exports.Set("setPluginRSP", Function::New(env, npmSetPluginRSP));
     
-    // Functions
-    exports.Set("runEmulator", Napi::Function::New(env, m64b_interface::WrapRunEmulator));
-    exports.Set("runEmulatorAsync", Napi::Function::New(env, m64b_interface::WrapRunEmulatorAsync));
-    exports.Set("pauseEmulator", Napi::Function::New(env, m64b_interface::WrapPauseEmulator));
-    exports.Set("resumeEmulator", Napi::Function::New(env, m64b_interface::WrapResumeEmulator));
-    exports.Set("stopEmulator", Napi::Function::New(env, m64b_interface::WrapStopEmulator));
-
+    // General Functions
+    
+    // Special Functions
+    exports.Set("runEmulator", Function::New(env, npmRunEmulator));
+    exports.Set("runEmulatorAsync", Function::New(env, npmRunEmulatorAsync));
+    exports.Set("pauseEmulator", Function::New(env, npmPauseEmulator));
+    exports.Set("resumeEmulator", Function::New(env, npmResumeEmulator));
+    exports.Set("stopEmulator", Function::New(env, npmStopEmulator));
+    
     return exports;
 }

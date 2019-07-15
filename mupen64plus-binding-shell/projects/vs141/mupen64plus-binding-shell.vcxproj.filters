@@ -28,6 +28,9 @@
     <ClCompile Include="..\..\src\api\m64p_binding_memory.c">
       <Filter>api</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\api\m64p_binding_core.c">
+      <Filter>api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\osal\osal_dynamiclib.h">
@@ -61,6 +64,9 @@
       <Filter>api</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\api\m64p_binding_memory.h">
+      <Filter>api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\api\m64p_binding_core.h">
       <Filter>api</Filter>
     </ClInclude>
   </ItemGroup>

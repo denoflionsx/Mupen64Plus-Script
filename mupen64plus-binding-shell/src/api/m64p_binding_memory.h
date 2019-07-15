@@ -4,6 +4,7 @@
 #include "m64p_types.h"
 #include "m64p_memaccess.h"
 
+EXPORT const char* CALL rdramReadBuffer(uint32 addr, uint32 length);
 EXPORT uint64 CALL rdramRead64(uint32 addr);
 EXPORT uint64 CALL rdramReadU64(uint32 addr);
 EXPORT void CALL rdramWrite64(uint32 addr, uint64 value);
@@ -29,5 +30,7 @@ EXPORT uint16 CALL romRead16(uint32 addr);
 EXPORT void CALL romWrite16(uint32 addr, uint16 value);
 EXPORT uint8 CALL romRead8(uint32 addr);
 EXPORT void CALL romWrite8(uint32 addr, uint8 value);
+
+EXPORT void CALL savestatesRefreshHack(void);
 
 #endif

@@ -45,18 +45,19 @@ int g_CoreAPIVersion;
 ptr_CoreErrorMessage    CoreErrorMessage = NULL;
 
 /* definitions of pointers to Core rdram functions */
-ptr_read_rdram_64				RdRamRead64 = NULL;
-ptr_read_rdram_64_unaligned   RdRamReadU64 = NULL;
-ptr_write_rdram_64			RdRamWrite64 = NULL;
-ptr_write_rdram_64_unaligned  RdRamWriteU64 = NULL;
-ptr_read_rdram_32				RdRamRead32 = NULL;
-ptr_read_rdram_32_unaligned   RdRamReadU32 = NULL;
-ptr_write_rdram_32			RdRamWrite32 = NULL;
-ptr_write_rdram_32_unaligned  RdRamWriteU32 = NULL;
-ptr_read_rdram_16				RdRamRead16 = NULL;
-ptr_write_rdram_16			RdRamWrite16 = NULL;
-ptr_read_rdram_8				RdRamRead8 = NULL;
-ptr_write_rdram_8				RdRamWrite8 = NULL;
+ptr_read_rdram_buffer				RdRamReadBuffer = NULL;
+ptr_read_rdram_64					RdRamRead64 = NULL;
+ptr_read_rdram_64_unaligned			RdRamReadU64 = NULL;
+ptr_write_rdram_64					RdRamWrite64 = NULL;
+ptr_write_rdram_64_unaligned		RdRamWriteU64 = NULL;
+ptr_read_rdram_32					RdRamRead32 = NULL;
+ptr_read_rdram_32_unaligned			RdRamReadU32 = NULL;
+ptr_write_rdram_32					RdRamWrite32 = NULL;
+ptr_write_rdram_32_unaligned		RdRamWriteU32 = NULL;
+ptr_read_rdram_16					RdRamRead16 = NULL;
+ptr_write_rdram_16					RdRamWrite16 = NULL;
+ptr_read_rdram_8					RdRamRead8 = NULL;
+ptr_write_rdram_8					RdRamWrite8 = NULL;
 
 /* definitions of pointers to Core rom functions */
 ptr_read_rom_64				RomRead64 = NULL;
@@ -71,6 +72,9 @@ ptr_read_rom_16				RomRead16 = NULL;
 ptr_write_rom_16			RomWrite16 = NULL;
 ptr_read_rom_8				RomRead8 = NULL;
 ptr_write_rom_8				RomWrite8 = NULL;
+
+/* definitions of pointers to Core savestate functions */
+ptr_savestates_refresh_hack	SaveStatesHackRefresh = NULL;
 
 /* definitions of pointers to Core front-end functions */
 ptr_CoreStartup         CoreStartup = NULL;
@@ -249,6 +253,7 @@ m64p_error AttachCoreLib(const char *CoreLibFilepath)
 	CoreCheatEnabled = (ptr_CoreCheatEnabled)osal_dynlib_getproc(CoreHandle, "CoreCheatEnabled");
 
 	/* get function pointers to the rdram functions */
+	RdRamReadBuffer = (ptr_read_rdram_buffer)osal_dynlib_getproc(CoreHandle, "read_rdram_buffer");
 	RdRamRead64 = (ptr_read_rdram_64)osal_dynlib_getproc(CoreHandle, "read_rdram_64");
 	RdRamReadU64 = (ptr_read_rdram_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_rdram_64_unaligned");
 	RdRamWrite64 = (ptr_write_rdram_64)osal_dynlib_getproc(CoreHandle, "write_rdram_64");
@@ -275,6 +280,9 @@ m64p_error AttachCoreLib(const char *CoreLibFilepath)
 	RomWrite16 = (ptr_write_rom_16)osal_dynlib_getproc(CoreHandle, "write_rom_16");
 	RomRead8 = (ptr_read_rom_8)osal_dynlib_getproc(CoreHandle, "read_rom_8");
 	RomWrite8 = (ptr_write_rom_8)osal_dynlib_getproc(CoreHandle, "write_rom_8");
+
+	/* get function pointers to the savestate functions */
+	SaveStatesHackRefresh = (ptr_savestates_refresh_hack)osal_dynlib_getproc(CoreHandle, "savestates_refresh_hack");
 
 	/* get function pointers to the configuration functions */
 	ConfigListSections = (ptr_ConfigListSections)osal_dynlib_getproc(CoreHandle, "ConfigListSections");
@@ -345,6 +353,7 @@ m64p_error DetachCoreLib(void)
 	CoreAddCheat = NULL;
 	CoreCheatEnabled = NULL;
 
+	RdRamReadBuffer = NULL;
 	RdRamRead64 = NULL;
 	RdRamReadU64 = NULL;
 	RdRamWrite64 = NULL;

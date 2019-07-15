@@ -5,6 +5,7 @@
 // ## RDRam Memory
 // #########################################################
 
+EXPORT const char* CALL rdramReadBuffer(uint32 addr, uint32 length) { return RdRamReadBuffer(addr, length); }
 EXPORT uint64 CALL rdramRead64(uint32 addr) { return RdRamRead64(addr); }
 EXPORT uint64 CALL rdramReadU64(uint32 addr) { return RdRamReadU64(addr); }
 EXPORT void CALL rdramWrite64(uint32 addr, uint64 value) { RdRamWrite64(addr, value); }
@@ -34,3 +35,9 @@ EXPORT uint16 CALL romRead16(uint32 addr) { return RomRead16(addr); }
 EXPORT void CALL romWrite16(uint32 addr, uint16 value) { RomWrite16(addr, value); }
 EXPORT uint8 CALL romRead8(uint32 addr) { return RomRead8(addr); }
 EXPORT void CALL romWrite8(uint32 addr, uint8 value) { RomWrite8(addr, value); }
+
+// #########################################################
+// ## SaveStates
+// #########################################################
+
+EXPORT void CALL savestatesRefreshHack(void) { SaveStatesHackRefresh(); }

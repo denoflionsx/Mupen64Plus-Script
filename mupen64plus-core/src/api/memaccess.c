@@ -21,6 +21,7 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "main/main.h"
+#include "main/savestates.h"
 #include "memory/memory.h"
 #include "m64p_memaccess.h"
 #include "ri/rdram.h"
@@ -29,6 +30,19 @@
 // #########################################################
 // ## RDRam Memory
 // #########################################################
+
+EXPORT const char* CALL read_rdram_buffer(uint32 addr, uint32 length)
+{
+	const char* value = malloc(length + 1);
+	uint8 val;
+
+	for (int i = 0; i < length; i++) {
+		val = read_rdram_8(addr + i);
+		memcpy(value + i, &val, 1);
+	}
+
+	return value;
+}
 
 EXPORT uint64 CALL read_rdram_64(uint32 addr)
 {
@@ -74,7 +88,7 @@ EXPORT uint32 CALL read_rdram_32_unaligned(uint32 addr)
 
 EXPORT void CALL write_rdram_32(uint32 addr, uint32 value)
 {
-	g_rdram[(addr & 0xffffff) >> 2] = value;
+	g_rdram[rdram_dram_address(addr)] = value;
 }
 
 EXPORT void CALL write_rdram_32_unaligned(uint32 addr, uint32 value)
@@ -85,18 +99,16 @@ EXPORT void CALL write_rdram_32_unaligned(uint32 addr, uint32 value)
 	write_rdram_8(addr + 3, value & 0xFF);
 }
 
-//read_rdram_16_unaligned and write_rdram_16_unaligned don't exist because
-//read_rdram_16 and write_rdram_16 work unaligned already.
 EXPORT uint16 CALL read_rdram_16(uint32 addr)
 {
 	return ((uint16)read_rdram_8(addr) << 8) |
-		(uint16)read_rdram_8(addr + 1); //cough cough hack hack
+		(uint16)read_rdram_8(addr + 1);
 }
 
 EXPORT void CALL write_rdram_16(uint32 addr, uint16 value)
 {
-	write_rdram_8(addr, value >> 8); //this isn't much better
-	write_rdram_8(addr + 1, value & 0xFF); //then again, it works unaligned
+	write_rdram_8(addr, value >> 8);
+	write_rdram_8(addr + 1, value & 0xFF);
 }
 
 EXPORT uint8 CALL read_rdram_8(uint32 addr)
@@ -147,7 +159,7 @@ EXPORT void CALL write_rom_64_unaligned(uint32 addr, uint64 value)
 
 EXPORT uint32 CALL read_rom_32(uint32 addr)
 {
-	uint32 value = g_rdram[rdram_dram_address(addr)];
+	uint32 value = g_rom[addr];
 	if (&value == 0)
 		return M64P_MEM_INVALID;
 	return value;
@@ -163,7 +175,7 @@ EXPORT uint32 CALL read_rom_32_unaligned(uint32 addr)
 
 EXPORT void CALL write_rom_32(uint32 addr, uint32 value)
 {
-	g_rdram[(addr & 0xffffff) >> 2] = value;
+	g_rom[addr] = value;
 }
 
 EXPORT void CALL write_rom_32_unaligned(uint32 addr, uint32 value)
@@ -203,3 +215,9 @@ EXPORT void CALL write_rom_8(uint32 addr, uint8 value)
 	word = (word & ~mask) | (value << ((3 - (addr & 3)) * 8));
 	write_rom_32(addr & ~3, word);
 }
+
+// #########################################################
+// ## Save State Stuff
+// #########################################################
+
+EXPORT void CALL savestates_refresh_hack(void) { savestates_hack_refresh(); }
