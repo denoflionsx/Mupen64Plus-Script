@@ -29,7 +29,7 @@ following commands in order:
 
 If you have just pulled/downloaded the package from git
 you will be missing some dependancies. These can aquired
-by running 'npm run install' before running the commands
+by running 'npm install' before running the commands
 above.
 
 ### DISCLAIMER:
