@@ -18,14 +18,11 @@ EXPORT void CALL rdramWrite16(uint32 addr, uint16 value);
 EXPORT uint8 CALL rdramRead8(uint32 addr);
 EXPORT void CALL rdramWrite8(uint32 addr, uint8 value);
 
+EXPORT const char* CALL romReadBuffer(uint32 addr, uint32 length);
 EXPORT uint64 CALL romRead64(uint32 addr);
-EXPORT uint64 CALL romReadU64(uint32 addr);
 EXPORT void CALL romWrite64(uint32 addr, uint64 value);
-EXPORT void CALL romWriteU64(uint32 addr, uint64 value);
 EXPORT uint32 CALL romRead32(uint32 addr);
-EXPORT uint32 CALL romReadU32(uint32 addr);
 EXPORT void CALL romWrite32(uint32 addr, uint32 value);
-EXPORT void CALL romWriteU32(uint32 addr, uint32 value);
 EXPORT uint16 CALL romRead16(uint32 addr);
 EXPORT void CALL romWrite16(uint32 addr, uint16 value);
 EXPORT uint8 CALL romRead8(uint32 addr);

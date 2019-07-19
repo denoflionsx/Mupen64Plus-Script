@@ -76,9 +76,6 @@ rl.on('line', function(line) {
             console.log('-EG: /rdramRead8 0x40');
             console.log('     /rdramWrite8 0x40 0x3c');
             console.log('');
-            console.log('NOTE: Buffer functionality is not complete for rdram');
-            console.log('and not implemented for rom yet.');
-            console.log('');
             console.log('----------------------------------');
             console.log('');
             console.log('Other Commands:');
@@ -102,6 +99,7 @@ rl.on('line', function(line) {
         case '/rdramWrite16': console.log(m64p.rdramWrite16(parseInt(lines[1]), parseInt(lines[2]))); break;
         case '/rdramWrite8': console.log(m64p.rdramWrite8(parseInt(lines[1]), parseInt(lines[2]))); break;
         
+        case '/romReadBuffer': console.log(toHexString(m64p.romReadBuffer(parseInt(lines[1]), parseInt(lines[2])))); break;
         case '/romRead64': console.log(m64p.romRead64(parseInt(lines[1])).toString(16)); break;
         case '/romReadU64': console.log(m64p.romReadU64(parseInt(lines[1])).toString(16)); break;
         case '/romRead32': console.log(m64p.romRead32(parseInt(lines[1])).toString(16)); break;

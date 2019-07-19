@@ -57,14 +57,11 @@ extern ptr_read_rdram_8					RdRamRead8;
 extern ptr_write_rdram_8				RdRamWrite8;
 
 /* declarations of pointers to Core Rom functions */
+extern ptr_read_rom_buffer			RomReadBuffer;
 extern ptr_read_rom_64				RomRead64;
-extern ptr_read_rom_64_unaligned	RomReadU64;
 extern ptr_write_rom_64				RomWrite64;
-extern ptr_write_rom_64_unaligned	RomWriteU64;
 extern ptr_read_rom_32				RomRead32;
-extern ptr_read_rom_32_unaligned	RomReadU32;
 extern ptr_write_rom_32				RomWrite32;
-extern ptr_write_rom_32_unaligned	RomWriteU32;
 extern ptr_read_rom_16				RomRead16;
 extern ptr_write_rom_16				RomWrite16;
 extern ptr_read_rom_8				RomRead8;

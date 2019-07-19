@@ -115,27 +115,28 @@ Value npmRdRamWrite8(const CallbackInfo& info) {
 // ## Rom Memory
 // #########################################################
 
+Uint8Array npmRomReadBuffer(const CallbackInfo& info) {
+    uint32 addr = info[0].As<Number>().Uint32Value();
+    size_t len = info[1].As<Number>().Uint32Value();
+
+    const char* mem = romReadBuffer(addr, len);
+    Uint8Array arr = Uint8Array::New(info.Env(), len);
+    
+    for (size_t i = 0; i < len; i++) 
+        arr.Set(i, mem[i]);
+
+    return arr;
+}
+
 Number npmRomRead64(const CallbackInfo& info) {
 	uint32 addr = info[0].As<Number>().Uint32Value();
 	uint64 value = romRead64(addr);
 	return Number::New(info.Env(), value);
 }
 
-Number npmRomReadU64(const CallbackInfo& info) {
-	uint32 addr = info[0].As<Number>().Uint32Value();
-	uint64 value = romReadU64(addr);
-	return Number::New(info.Env(), value);
-}
-
 Number npmRomRead32(const CallbackInfo& info) {
 	uint32 addr = info[0].As<Number>().Uint32Value();
 	uint32 value = romRead32(addr);
-	return Number::New(info.Env(), value);
-}
-
-Number npmRomReadU32(const CallbackInfo& info) {
-	uint32 addr = info[0].As<Number>().Uint32Value();
-	uint32 value = romReadU32(addr);
 	return Number::New(info.Env(), value);
 }
 
@@ -153,6 +154,19 @@ Number npmRomRead8(const CallbackInfo& info) {
 
 // -------------------------------------------
 
+Value npmRomWriteBuffer(const CallbackInfo& info) {
+    uint32 addr = info[0].As<Number>().Uint32Value();
+    Uint8Array arr = info[1].As<Uint8Array>();
+    size_t len = arr.ByteLength(); uint8 val;
+
+    for (size_t i = 0; i < len; i++) {
+        val = arr.Get(i).As<Number>().Uint32Value();
+        romWrite8(addr + i, val);
+    }
+    
+    return info.Env().Undefined();
+}
+
 Value npmRomWrite64(const CallbackInfo& info) {
 	uint32 addr = info[0].As<Number>().Uint32Value();
 	uint64 value = info[1].As<Number>().Int64Value();
@@ -160,24 +174,10 @@ Value npmRomWrite64(const CallbackInfo& info) {
     return info.Env().Undefined();
 }
 
-Value npmRomWriteU64(const CallbackInfo& info) {
-	uint32 addr = info[0].As<Number>().Uint32Value();
-	uint64 value = info[1].As<Number>().Int64Value();
-	romWriteU64(addr, value);
-    return info.Env().Undefined();
-}
-
 Value npmRomWrite32(const CallbackInfo& info) {
 	uint32 addr = info[0].As<Number>().Uint32Value();
 	uint32 value = info[1].As<Number>().Uint32Value();
 	romWrite32(addr, value);
-    return info.Env().Undefined();
-}
-
-Value npmRomWriteU32(const CallbackInfo& info) {
-	uint32 addr = info[0].As<Number>().Uint32Value();
-	uint32 value = info[1].As<Number>().Uint32Value();
-	romWriteU32(addr, value);
     return info.Env().Undefined();
 }
 
@@ -229,17 +229,15 @@ Object M64B_Memory_Init(Env env, Object exports) {
     exports.Set("rdramWrite8", Function::New(env, npmRdRamWrite8));
     
     // Rom Memory
+    exports.Set("romReadBuffer", Function::New(env, npmRomReadBuffer));
     exports.Set("romRead64", Function::New(env, npmRomRead64));
-    exports.Set("romReadU64", Function::New(env, npmRomReadU64));
     exports.Set("romRead32", Function::New(env, npmRomRead32));
-    exports.Set("romReadU32", Function::New(env, npmRomReadU32));
     exports.Set("romRead16", Function::New(env, npmRomRead16));
     exports.Set("romRead8", Function::New(env, npmRomRead8));
 
+    exports.Set("romWriteBuffer", Function::New(env, npmRomWriteBuffer));
     exports.Set("romWrite64", Function::New(env, npmRomWrite64));
-    exports.Set("romWriteU64", Function::New(env, npmRomWriteU64));
     exports.Set("romWrite32", Function::New(env, npmRomWrite32));
-    exports.Set("romWriteU32", Function::New(env, npmRomWriteU32));
     exports.Set("romWrite16", Function::New(env, npmRomWrite16));
     exports.Set("romWrite8", Function::New(env, npmRomWrite8));
 

@@ -516,7 +516,7 @@ int LoadGame() {
 		DebugMessage(M64MSG_ERROR, "couldn't open ROM file '%s' for reading.", l_ROMFilepath);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 1;
+		return -1;
 	}
 	/* get the length of the ROM, allocate memory buffer, load it from disk */
 	long romlength = 0;
@@ -530,7 +530,7 @@ int LoadGame() {
 		fclose(fPtr);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 2;
+		return -2;
 	}
 	else if (fread(ROM_buffer, 1, romlength, fPtr) != romlength)
 	{
@@ -539,7 +539,7 @@ int LoadGame() {
 		fclose(fPtr);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 3;
+		return -3;
 	}
 	fclose(fPtr);
 
@@ -550,10 +550,10 @@ int LoadGame() {
 		free(ROM_buffer);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 4;
+		return -4;
 	}
 	free(ROM_buffer); /* the core copies the ROM image, so we can release this buffer immediately */
-	return 0;
+	return (int)romlength;
 }
 
 int Boot(bool async)

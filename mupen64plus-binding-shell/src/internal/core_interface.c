@@ -60,14 +60,11 @@ ptr_read_rdram_8					RdRamRead8 = NULL;
 ptr_write_rdram_8					RdRamWrite8 = NULL;
 
 /* definitions of pointers to Core rom functions */
+ptr_read_rom_buffer			RomReadBuffer = NULL;
 ptr_read_rom_64				RomRead64 = NULL;
-ptr_read_rom_64_unaligned   RomReadU64 = NULL;
 ptr_write_rom_64			RomWrite64 = NULL;
-ptr_write_rom_64_unaligned  RomWriteU64 = NULL;
 ptr_read_rom_32				RomRead32 = NULL;
-ptr_read_rom_32_unaligned   RomReadU32 = NULL;
 ptr_write_rom_32			RomWrite32 = NULL;
-ptr_write_rom_32_unaligned  RomWriteU32 = NULL;
 ptr_read_rom_16				RomRead16 = NULL;
 ptr_write_rom_16			RomWrite16 = NULL;
 ptr_read_rom_8				RomRead8 = NULL;
@@ -268,14 +265,11 @@ m64p_error AttachCoreLib(const char *CoreLibFilepath)
 	RdRamWrite8 = (ptr_write_rdram_8)osal_dynlib_getproc(CoreHandle, "write_rdram_8");
 
 	/* get function pointers to the rom functions */
+	RomReadBuffer = (ptr_read_rom_buffer)osal_dynlib_getproc(CoreHandle, "read_rom_buffer");
 	RomRead64 = (ptr_read_rom_64)osal_dynlib_getproc(CoreHandle, "read_rom_64");
-	RomReadU64 = (ptr_read_rom_64_unaligned)osal_dynlib_getproc(CoreHandle, "read_rom_64_unaligned");
 	RomWrite64 = (ptr_write_rom_64)osal_dynlib_getproc(CoreHandle, "write_rom_64");
-	RomWriteU64 = (ptr_write_rom_64_unaligned)osal_dynlib_getproc(CoreHandle, "write_rom_64_unaligned");
 	RomRead32 = (ptr_read_rom_32)osal_dynlib_getproc(CoreHandle, "read_rom_32");
-	RomReadU32 = (ptr_read_rom_32_unaligned)osal_dynlib_getproc(CoreHandle, "read_rom_32_unaligned");
 	RomWrite32 = (ptr_write_rom_32)osal_dynlib_getproc(CoreHandle, "write_rom_32");
-	RomWriteU32 = (ptr_write_rom_32_unaligned)osal_dynlib_getproc(CoreHandle, "write_rom_32_unaligned");
 	RomRead16 = (ptr_read_rom_16)osal_dynlib_getproc(CoreHandle, "read_rom_16");
 	RomWrite16 = (ptr_write_rom_16)osal_dynlib_getproc(CoreHandle, "write_rom_16");
 	RomRead8 = (ptr_read_rom_8)osal_dynlib_getproc(CoreHandle, "read_rom_8");
@@ -367,14 +361,11 @@ m64p_error DetachCoreLib(void)
 	RdRamRead8 = NULL;
 	RdRamWrite8 = NULL;
 
+	RomReadBuffer = NULL;
 	RomRead64 = NULL;
-	RomReadU64 = NULL;
 	RomWrite64 = NULL;
-	RomWriteU64 = NULL;
 	RomRead32 = NULL;
-	RomReadU32 = NULL;
 	RomWrite32 = NULL;
-	RomWriteU32 = NULL;
 	RomRead16 = NULL;
 	RomWrite16 = NULL;
 	RomRead8 = NULL;

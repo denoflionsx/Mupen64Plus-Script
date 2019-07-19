@@ -28,17 +28,15 @@ Value npmRdRamWrite8(const CallbackInfo& info);
 // ## Rom Memory
 // #########################################################
 
+Uint8Array npmRomReadBuffer(const CallbackInfo& info);
 Number npmRomRead64(const CallbackInfo& info);
-Number npmRomReadU64(const CallbackInfo& info);
 Number npmRomRead32(const CallbackInfo& info);
-Number npmRomReadU32(const CallbackInfo& info);
 Number npmRomRead16(const CallbackInfo& info);
 Number npmRomRead8(const CallbackInfo& info);
 
+Value npmRomWriteBuffer(const CallbackInfo& info);
 Value npmRomWrite64(const CallbackInfo& info);
-Value npmRomWriteU64(const CallbackInfo& info);
 Value npmRomWrite32(const CallbackInfo& info);
-Value npmRomWriteU32(const CallbackInfo& info);
 Value npmRomWrite16(const CallbackInfo& info);
 Value npmRomWrite8(const CallbackInfo& info);
 
