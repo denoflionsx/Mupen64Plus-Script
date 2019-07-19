@@ -470,18 +470,8 @@ DWORD WINAPI ExecuteM64PThread(void* data) {
 }
 
 #endif
-int EmuMain(bool async)
-{
-	int i;
 
-	printf(" __  __                         __   _  _   ____  _             \n");
-	printf("|  \\/  |_   _ _ __   ___ _ __  / /_ | || | |  _ \\| |_   _ ___ \n");
-	printf("| |\\/| | | | | '_ \\ / _ \\ '_ \\| '_ \\| || |_| |_) | | | | / __|  \n");
-	printf("| |  | | |_| | |_) |  __/ | | | (_) |__   _|  __/| | |_| \\__ \\  \n");
-	printf("|_|  |_|\\__,_| .__/ \\___|_| |_|\\___/   |_| |_|   |_|\\__,_|___/  \n");
-	printf("             |_|         http://code.google.com/p/mupen64plus/  \n");
-	printf("Binding Version %i.%i.%i\n\n", VERSION_PRINTF_SPLIT(CONSOLE_UI_VERSION));
-
+int Initialize() {
 	/* load the Mupen64Plus core library */
 	if (AttachCoreLib(l_CoreLibPath) != M64ERR_SUCCESS)
 		return 1;
@@ -503,7 +493,7 @@ int EmuMain(bool async)
 		DetachCoreLib();
 		return 3;
 	}
-	
+
 	/* Handle the core comparison feature */
 	if (l_CoreCompareMode != 0 && !(g_CoreCapabilities & M64CAPS_CORE_COMPARE))
 	{
@@ -516,7 +506,9 @@ int EmuMain(bool async)
 	/* save the given command-line options in configuration file if requested */
 	if (l_SaveOptions)
 		SaveConfigurationOptions();
+}
 
+int LoadGame() {
 	/* load ROM image */
 	FILE *fPtr = fopen(l_ROMFilepath, "rb");
 	if (fPtr == NULL)
@@ -524,9 +516,8 @@ int EmuMain(bool async)
 		DebugMessage(M64MSG_ERROR, "couldn't open ROM file '%s' for reading.", l_ROMFilepath);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 5;
+		return 1;
 	}
-
 	/* get the length of the ROM, allocate memory buffer, load it from disk */
 	long romlength = 0;
 	fseek(fPtr, 0L, SEEK_END);
@@ -539,7 +530,7 @@ int EmuMain(bool async)
 		fclose(fPtr);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 6;
+		return 2;
 	}
 	else if (fread(ROM_buffer, 1, romlength, fPtr) != romlength)
 	{
@@ -548,7 +539,7 @@ int EmuMain(bool async)
 		fclose(fPtr);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 7;
+		return 3;
 	}
 	fclose(fPtr);
 
@@ -559,10 +550,24 @@ int EmuMain(bool async)
 		free(ROM_buffer);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 8;
+		return 4;
 	}
 	free(ROM_buffer); /* the core copies the ROM image, so we can release this buffer immediately */
+	return 0;
+}
 
+int Boot(bool async)
+{
+	int i;
+
+	printf(" __  __                         __   _  _   ____  _             \n");
+	printf("|  \\/  |_   _ _ __   ___ _ __  / /_ | || | |  _ \\| |_   _ ___ \n");
+	printf("| |\\/| | | | | '_ \\ / _ \\ '_ \\| '_ \\| || |_| |_) | | | | / __|  \n");
+	printf("| |  | | |_| | |_) |  __/ | | | (_) |__   _|  __/| | |_| \\__ \\  \n");
+	printf("|_|  |_|\\__,_| .__/ \\___|_| |_|\\___/   |_| |_|   |_|\\__,_|___/  \n");
+	printf("             |_|         http://code.google.com/p/mupen64plus/  \n");
+	printf("Binding Version %i.%i.%i\n\n", VERSION_PRINTF_SPLIT(CONSOLE_UI_VERSION));
+	
 	/* handle the cheat codes */
 	CheatStart(l_CheatMode, l_CheatNumList);
 	if (l_CheatMode == CHEAT_SHOW_LIST)
@@ -570,17 +575,17 @@ int EmuMain(bool async)
 		(*CoreDoCommand)(M64CMD_ROM_CLOSE, 0, NULL);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 9;
+		return 1;
 	}
 
 	/* search for and load plugins */
-	rval = PluginSearchLoad(l_ConfigUI);
+	m64p_error rval = PluginSearchLoad(l_ConfigUI);
 	if (rval != M64ERR_SUCCESS)
 	{
 		(*CoreDoCommand)(M64CMD_ROM_CLOSE, 0, NULL);
 		(*CoreShutdown)();
 		DetachCoreLib();
-		return 10;
+		return 2;
 	}
 
 	/* attach plugins to core */
@@ -592,7 +597,7 @@ int EmuMain(bool async)
 			(*CoreDoCommand)(M64CMD_ROM_CLOSE, 0, NULL);
 			(*CoreShutdown)();
 			DetachCoreLib();
-			return 11;
+			return 3;
 		}
 	}
 

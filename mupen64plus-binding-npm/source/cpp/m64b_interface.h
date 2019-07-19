@@ -33,8 +33,9 @@ EXPORT void CALL SetVerboseLog(int boolVal);
 // ## Special Functions
 // #########################################################
 
+Number npmInitEmu(const CallbackInfo& info);
+Number npmLoadRom(const CallbackInfo& info);
 Number npmRunEmulator(const CallbackInfo& info);
-Number npmRunEmulatorAsync(const CallbackInfo& info);
 Value npmPauseEmulator(const CallbackInfo& info);
 Value npmResumeEmulator(const CallbackInfo& info);
 Value npmStopEmulator(const CallbackInfo& info);

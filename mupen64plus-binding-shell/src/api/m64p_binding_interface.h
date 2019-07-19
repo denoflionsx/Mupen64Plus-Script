@@ -18,8 +18,10 @@ EXPORT void CALL SetNoSpeedLimit(void);
 EXPORT void CALL SetResolution(int xres, int yres);
 EXPORT void CALL SetVerboseLog(int boolVal);
 
-EXPORT int CALL RunEmulator(const char *romFile);
-EXPORT int CALL RunEmulatorAsync(const char *romFile);
+EXPORT int CALL InitEmulator();
+EXPORT int CALL LoadRom(const char *romFile);
+
+EXPORT int CALL RunEmulator(bool async);
 EXPORT void CALL PauseEmulator(void);
 EXPORT void CALL ResumeEmulator(void);
 EXPORT void CALL StopEmulator(void);

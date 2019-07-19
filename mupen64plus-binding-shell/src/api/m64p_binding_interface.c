@@ -86,14 +86,17 @@ EXPORT void CALL SetVerboseLog(int boolVal) {
 // ## Special Functions
 // #########################################################
 
-EXPORT int CALL RunEmulator(const char *romFile) {
-	l_ROMFilepath = strdup(romFile);
-	return EmuMain(false);
+EXPORT int CALL InitEmulator() {
+	return Initialize();
 }
 
-EXPORT int CALL RunEmulatorAsync(const char *romFile) {
+EXPORT int CALL LoadRom(const char *romFile) {
 	l_ROMFilepath = strdup(romFile);
-	return EmuMain(true);
+	return LoadGame();
+}
+
+EXPORT int CALL RunEmulator(bool async) {
+	return Boot(async);
 }
 
 EXPORT void CALL PauseEmulator(void) { (*CoreDoCommand)(M64CMD_PAUSE, 0, NULL); }

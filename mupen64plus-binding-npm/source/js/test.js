@@ -32,9 +32,11 @@ m64p.setPluginAudio("mupen64plus-audio-sdl.dll");
 m64p.setPluginGFX("mupen64plus-video-rice.dll");
 m64p.setPluginInput("mupen64plus-input-sdl.dll");
 m64p.setPluginRSP("mupen64plus-rsp-hle.dll");
+errCode = m64p.initialize();
 
 // Activate emulator with rom
-m64p.runEmulatorAsync("mupen64plus.v64");
+errCode = m64p.loadRom("mupen64plus.v64");
+errCode = m64p.runEmulator(true);
 
 // Activate callbacks
 m64p.setFrameCallback(cbFrame);

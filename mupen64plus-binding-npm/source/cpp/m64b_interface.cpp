@@ -69,15 +69,20 @@ EXPORT void CALL SetVerboseLog(int boolVal);
 // ## Special Functions
 // #########################################################
 
-Number npmRunEmulator(const CallbackInfo& info) {
-    std::string input = info[0].As<String>().Utf8Value();
-    int ret = RunEmulator(input.c_str());
+Number npmInitEmu(const CallbackInfo& info) {
+    int ret = InitEmulator();
     return Number::New(info.Env(), ret);
 }
 
-Number npmRunEmulatorAsync(const CallbackInfo& info) {
+Number npmLoadRom(const CallbackInfo& info) {
     std::string input = info[0].As<String>().Utf8Value();
-    int ret = RunEmulatorAsync(input.c_str());
+    int ret = LoadRom(input.c_str());
+    return Number::New(info.Env(), ret);
+}
+
+Number npmRunEmulator(const CallbackInfo& info) {
+    bool async = info[0].As<Boolean>();
+    int ret = RunEmulator(async);
     return Number::New(info.Env(), ret);
 }
 
@@ -115,8 +120,9 @@ Object M64B_Interface_Init(Env env, Object exports) {
     // General Functions
     
     // Special Functions
+    exports.Set("initialize", Function::New(env, npmInitEmu));
+    exports.Set("loadRom", Function::New(env, npmLoadRom));
     exports.Set("runEmulator", Function::New(env, npmRunEmulator));
-    exports.Set("runEmulatorAsync", Function::New(env, npmRunEmulatorAsync));
     exports.Set("pauseEmulator", Function::New(env, npmPauseEmulator));
     exports.Set("resumeEmulator", Function::New(env, npmResumeEmulator));
     exports.Set("stopEmulator", Function::New(env, npmStopEmulator));

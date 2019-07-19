@@ -235,11 +235,11 @@ m64p_error AttachCoreLib(const char *CoreLibFilepath)
 	/* print some information about the core library */
 	DebugMessage(M64MSG_INFO, "attached to core library '%s' version %i.%i.%i", CoreName, VERSION_PRINTF_SPLIT(CoreVersion));
 	if (g_CoreCapabilities & M64CAPS_DYNAREC)
-		DebugMessage(M64MSG_INFO, "            Includes support for Dynamic Recompiler.");
+		DebugMessage(M64MSG_INFO, "Includes support for Dynamic Recompiler.");
 	if (g_CoreCapabilities & M64CAPS_DEBUGGER)
-		DebugMessage(M64MSG_INFO, "            Includes support for MIPS r4300 Debugger.");
+		DebugMessage(M64MSG_INFO, "Includes support for MIPS r4300 Debugger.");
 	if (g_CoreCapabilities & M64CAPS_CORE_COMPARE)
-		DebugMessage(M64MSG_INFO, "            Includes support for r4300 Core Comparison.");
+		DebugMessage(M64MSG_INFO, "Includes support for r4300 Core Comparison.");
 
 	/* get function pointers to the common and front-end functions */
 	CoreErrorMessage = (ptr_CoreErrorMessage)osal_dynlib_getproc(CoreHandle, "CoreErrorMessage");

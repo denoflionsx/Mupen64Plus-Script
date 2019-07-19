@@ -47,6 +47,8 @@ extern int   l_CoreCompareMode;
 extern eCheatMode l_CheatMode;
 extern char      *l_CheatNumList;
 
-extern int EmuMain(bool async);
+extern int Initialize();
+extern int LoadGame();
+extern int Boot(bool async);
 
 #endif /* __MAIN_H__ */
