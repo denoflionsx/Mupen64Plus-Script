@@ -41,8 +41,6 @@ void Init_Callback_Frame(Function cb) { awFrame = new AW_Frame(cb); }
 using namespace std;
 
 void M64P_Callback_Frame(unsigned int frameIndex) {
-    if (frameIndex < 1) return;
-
     while (!ready_frame)
         this_thread::sleep_for(chrono::milliseconds(1));
     
