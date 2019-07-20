@@ -18,11 +18,12 @@ class AW_Frame : public AsyncWorker {
         AW_Frame(Function& callback) : AsyncWorker(callback) {}
         ~AW_Frame() {}
         void Execute() { }
+        //void SuppressDestruct() {}
         void OnOK() {
             HandleScope scope(Env());
             Callback().Call({Number::New(Env(), count_frame)});
-            unsigned int ready = 1; memcpy(&ready_frame, &ready, 4);
             awFrame = new AW_Frame(Callback().Value());
+            unsigned int ready = 1; memcpy(&ready_frame, &ready, 4);
         }
 };
  
