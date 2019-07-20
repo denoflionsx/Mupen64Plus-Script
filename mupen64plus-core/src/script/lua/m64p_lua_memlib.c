@@ -19,16 +19,15 @@ enum {
 	MEM_TYPE_S32,
 	MEM_TYPE_U32,
 	MEM_TYPE_FLOAT,
-	MEM_TYPE_DOUBLE,
 	MEM_TYPE_STRING, //used for write
 	NUM_MEM_TYPES
 };
 static const char *memTypeName[] = {
-	"s8", "u8", "s16", "u16", "s32", "u32", "float", "double", "string", NULL};
+	"s8", "u8", "s16", "u16", "s32", "u32", "float", "string", NULL};
 
 static int mem_meta_index(lua_State *L) {
 	if(lua_isinteger(L, 2)) {
-		uint32 addr = luaL_checkinteger(L, 2);
+		u32 addr = luaL_checkinteger(L, 2);
 		lua_pushinteger(L, read_rdram_8(addr));
 	}
 	else {
@@ -42,8 +41,8 @@ static int mem_meta_index(lua_State *L) {
 
 static int mem_meta_newindex(lua_State *L) {
 	if(lua_isinteger(L, 2)) {
-		uint32 addr = luaL_checkinteger(L, 2);
-		uint8  val  = luaL_checkinteger(L, 3);
+		u32 addr = luaL_checkinteger(L, 2);
+		u8  val  = luaL_checkinteger(L, 3);
 		write_rdram_8(addr, val);
 		return 0;
 	}
@@ -119,14 +118,8 @@ static int mem_method_read(lua_State *L) {
 				break;
 
 			case MEM_TYPE_FLOAT: {
-				u32 num = read_rdram_32_unaligned(addr);
+				u32 num = read_rdram_32(addr);
 				lua_pushnumber(L, *(float*)&num);
-				break;
-			}
-
-			case MEM_TYPE_DOUBLE: {
-				u64 num = read_rdram_64_unaligned(addr);
-				lua_pushnumber(L, *(double*)&num);
 				break;
 			}
 
@@ -167,22 +160,16 @@ static int mem_method_write(lua_State *L) {
 			break;
 
 		case MEM_TYPE_S32:
-			write_rdram_32_unaligned(addr, (s32)luaL_checkinteger(L, 4));
+			write_rdram_32(addr, (s32)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_U32:
-			write_rdram_32_unaligned(addr, (u32)luaL_checkinteger(L, 4));
+			write_rdram_32(addr, (u32)luaL_checkinteger(L, 4));
 			break;
 
 		case MEM_TYPE_FLOAT: {
 			float num = (float)luaL_checknumber(L, 4);
-			write_rdram_32_unaligned(addr, *(u32*)&num);
-			break;
-		}
-
-		case MEM_TYPE_DOUBLE: {
-			double num = (double)luaL_checknumber(L, 4);
-			write_rdram_64_unaligned(addr, *(u64*)&num);
+			write_rdram_32(addr, *(u32*)&num);
 			break;
 		}
 

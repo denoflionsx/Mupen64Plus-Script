@@ -9,7 +9,7 @@ function toHex(byteArray) {
 } 
 
 function cbFrame(frameIndex) { 
-    console.log("Frames: ", frameIndex);
+    //console.log("Frames: ", frameIndex);
 }
 
 //###################################
@@ -64,10 +64,7 @@ rl.on('line', function(line) {
             console.log('');
             console.log('---Replace "(Command)" with one of the following types--');
             console.log('Buffer');
-            console.log('64');
-            console.log('U64');
             console.log('32');
-            console.log('U32');
             console.log('16');
             console.log('8');
             console.log('');
@@ -84,35 +81,23 @@ rl.on('line', function(line) {
             console.log('/readwrite [readAddress] [value] [writeAddress]');
             console.log(''); break;
 
-        case '/rdramReadBuffer': console.log(toHexString(m64p.rdramReadBuffer(parseInt(lines[1]), parseInt(lines[2])))); break;
-        case '/rdramRead64': console.log(m64p.rdramRead64(parseInt(lines[1])).toString(16)); break;
-        case '/rdramReadU64': console.log(m64p.rdramReadU64(parseInt(lines[1])).toString(16)); break;
+        case '/rdramReadBuffer': console.log(toHex(m64p.rdramReadBuffer(parseInt(lines[1]), parseInt(lines[2])))); break;
         case '/rdramRead32': console.log(m64p.rdramRead32(parseInt(lines[1])).toString(16)); break;
-        case '/rdramReadU32': console.log(m64p.rdramReadU32(parseInt(lines[1])).toString(16)); break;
         case '/rdramRead16': console.log(m64p.rdramRead16(parseInt(lines[1])).toString(16)); break;
         case '/rdramRead8': console.log(m64p.rdramRead8(parseInt(lines[1])).toString(16)); break;
         
-        case '/rdramWrite64': console.log(m64p.rdramWrite64(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/rdramWriteU64': console.log(m64p.rdramWriteU64(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/rdramWrite32': console.log(m64p.rdramWrite32(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/rdramWriteU32': console.log(m64p.rdramWriteU32(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/rdramWrite16': console.log(m64p.rdramWrite16(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/rdramWrite8': console.log(m64p.rdramWrite8(parseInt(lines[1]), parseInt(lines[2]))); break;
+        case '/rdramWrite32': m64p.rdramWrite32(parseInt(lines[1]), parseInt(lines[2])); break;
+        case '/rdramWrite16': m64p.rdramWrite16(parseInt(lines[1]), parseInt(lines[2])); break;
+        case '/rdramWrite8': m64p.rdramWrite8(parseInt(lines[1]), parseInt(lines[2])); break;
         
-        case '/romReadBuffer': console.log(toHexString(m64p.romReadBuffer(parseInt(lines[1]), parseInt(lines[2])))); break;
-        case '/romRead64': console.log(m64p.romRead64(parseInt(lines[1])).toString(16)); break;
-        case '/romReadU64': console.log(m64p.romReadU64(parseInt(lines[1])).toString(16)); break;
+        case '/romReadBuffer': console.log(toHex(m64p.romReadBuffer(parseInt(lines[1]), parseInt(lines[2])))); break;
         case '/romRead32': console.log(m64p.romRead32(parseInt(lines[1])).toString(16)); break;
-        case '/romReadU32': console.log(m64p.romReadU32(parseInt(lines[1])).toString(16)); break;
         case '/romRead16': console.log(m64p.romRead16(parseInt(lines[1])).toString(16)); break;
         case '/romRead8': console.log(m64p.romRead8(parseInt(lines[1])).toString(16)); break;
         
-        case '/romWrite64': console.log(m64p.romWrite64(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/romWriteU64': console.log(m64p.romWriteU64(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/romWrite32': console.log(m64p.romWrite32(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/romWriteU32': console.log(m64p.romWriteU32(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/romWrite16': console.log(m64p.romWrite16(parseInt(lines[1]), parseInt(lines[2]))); break;
-        case '/romWrite8': console.log(m64p.romWrite8(parseInt(lines[1]), parseInt(lines[2]))); break;
+        case '/romWrite32': m64p.romWrite32(parseInt(lines[1]), parseInt(lines[2])); break;
+        case '/romWrite16': m64p.romWrite16(parseInt(lines[1]), parseInt(lines[2])); break;
+        case '/romWrite8': m64p.romWrite8(parseInt(lines[1]), parseInt(lines[2])); break;
         
         case '/refreshHack':
             m64p.savestatesRefreshHack();

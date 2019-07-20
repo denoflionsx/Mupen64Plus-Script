@@ -5,33 +5,31 @@
 // ## RDRam Memory
 // #########################################################
 
-EXPORT const char* CALL rdramReadBuffer(uint32 addr, uint32 length) { return RdRamReadBuffer(addr, length); }
-EXPORT uint64 CALL rdramRead64(uint32 addr) { return RdRamRead64(addr); }
-EXPORT uint64 CALL rdramReadU64(uint32 addr) { return RdRamReadU64(addr); }
-EXPORT void CALL rdramWrite64(uint32 addr, uint64 value) { RdRamWrite64(addr, value); }
-EXPORT void CALL rdramWriteU64(uint32 addr, uint64 value) { RdRamWriteU64(addr, value); }
-EXPORT uint32 CALL rdramRead32(uint32 addr) { return RdRamRead32(addr); }
-EXPORT uint32 CALL rdramReadU32(uint32 addr) { return RdRamReadU32(addr); }
-EXPORT void CALL rdramWrite32(uint32 addr, uint32 value) { RdRamWrite32(addr, value); }
-EXPORT void CALL rdramWriteU32(uint32 addr, uint32 value) { RdRamWriteU32(addr, value); }
-EXPORT uint16 CALL rdramRead16(uint32 addr) { return RdRamRead16(addr); }
-EXPORT void CALL rdramWrite16(uint32 addr, uint16 value) { RdRamWrite16(addr, value); }
-EXPORT uint8 CALL rdramRead8(uint32 addr) { return RdRamRead8(addr); }
-EXPORT void CALL rdramWrite8(uint32 addr, uint8 value) { RdRamWrite8(addr, value); }
+EXPORT const unsigned char* CALL rdramReadBuffer(u32 addr, u32 length) { return RdRamReadBuffer(addr, length); }
+EXPORT u32 CALL rdramRead32(u32 addr) { return RdRamRead32(addr); }
+EXPORT u16 CALL rdramRead16(u32 addr) { return RdRamRead16(addr); }
+EXPORT u8 CALL rdramRead8(u32 addr) { return RdRamRead8(addr); }
+
+// -------------------------------------------
+
+EXPORT void CALL rdramWrite32(u32 addr, u32 value) { RdRamWrite32(addr, value); }
+EXPORT void CALL rdramWrite16(u32 addr, u16 value) { RdRamWrite16(addr, value); }
+EXPORT void CALL rdramWrite8(u32 addr, u8 value) { RdRamWrite8(addr, value); }
 
 // #########################################################
 // ## Rom Memory
 // #########################################################
 
-EXPORT const char* CALL romReadBuffer(uint32 addr, uint32 length) { return RomReadBuffer(addr, length); }
-EXPORT uint64 CALL romRead64(uint32 addr) { return RomRead64(addr); }
-EXPORT void CALL romWrite64(uint32 addr, uint64 value) { RomWrite64(addr, value); }
-EXPORT uint32 CALL romRead32(uint32 addr) { return RomRead32(addr); }
-EXPORT void CALL romWrite32(uint32 addr, uint32 value) { RomWrite32(addr, value); }
-EXPORT uint16 CALL romRead16(uint32 addr) { return RomRead16(addr); }
-EXPORT void CALL romWrite16(uint32 addr, uint16 value) { RomWrite16(addr, value); }
-EXPORT uint8 CALL romRead8(uint32 addr) { return RomRead8(addr); }
-EXPORT void CALL romWrite8(uint32 addr, uint8 value) { RomWrite8(addr, value); }
+EXPORT const unsigned char* CALL romReadBuffer(u32 addr, u32 length) { return RomReadBuffer(addr, length); }
+EXPORT u32 CALL romRead32(u32 addr) { return RomRead32(addr); }
+EXPORT u16 CALL romRead16(u32 addr) { return RomRead16(addr); }
+EXPORT u8 CALL romRead8(u32 addr) { return RomRead8(addr); }
+
+// -------------------------------------------
+
+EXPORT void CALL romWrite32(u32 addr, u32 value) { RomWrite32(addr, value); }
+EXPORT void CALL romWrite16(u32 addr, u16 value) { RomWrite16(addr, value); }
+EXPORT void CALL romWrite8(u32 addr, u8 value) { RomWrite8(addr, value); }
 
 // #########################################################
 // ## SaveStates

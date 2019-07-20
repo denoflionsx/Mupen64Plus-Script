@@ -26,15 +26,31 @@
 #include "m64p_memaccess.h"
 #include "ri/rdram.h"
 
+static u32 addr_align(u32 address)
+{
+	return (address & 0xffffff) >> 2;
+}
 
 // #########################################################
 // ## RDRam Memory
 // #########################################################
 
-EXPORT const char* CALL read_rdram_buffer(uint32 addr, uint32 length)
+EXPORT const u8* CALL read_rdram_buffer(u32 addr, u32 length)
 {
-	const char* value = malloc(length + 1);
-	uint8 val;
+	const u8* value = malloc(length + 1);
+	//size_t len = addr & 3;
+	//size_t i;
+
+	//// PreBlock
+	//if (len > 0) {
+
+	//}
+
+	//// InBlock
+
+	//// PostBlock
+
+	u8 val;
 
 	for (int i = 0; i < length; i++) {
 		val = read_rdram_8(addr + i);
@@ -44,148 +60,101 @@ EXPORT const char* CALL read_rdram_buffer(uint32 addr, uint32 length)
 	return value;
 }
 
-EXPORT uint64 CALL read_rdram_64(uint32 addr)
+EXPORT u32 CALL read_rdram_32(u32 addr)
 {
-	return ((uint64)read_rdram_32(addr) << 32) | (uint64)read_rdram_32(addr + 4);
+	return (u32)g_rdram[addr_align(addr)];
 }
 
-EXPORT uint64 CALL read_rdram_64_unaligned(uint32 addr)
+EXPORT u16 CALL read_rdram_16(u32 addr)
 {
-	uint64 w[2];
-
-	w[0] = read_rdram_32_unaligned(addr);
-	w[1] = read_rdram_32_unaligned(addr + 4);
-	return (w[0] << 32) | w[1];
-}
-
-EXPORT void CALL write_rdram_64(uint32 addr, uint64 value)
-{
-	write_rdram_32(addr, (uint32)(value >> 32));
-	write_rdram_32(addr + 4, (uint32)(value & 0xFFFFFFFF));
-}
-
-EXPORT void CALL write_rdram_64_unaligned(uint32 addr, uint64 value)
-{
-	write_rdram_32_unaligned(addr, (uint32)(value >> 32));
-	write_rdram_32_unaligned(addr + 4, (uint32)(value & 0xFFFFFFFF));
-}
-
-EXPORT uint32 CALL read_rdram_32(uint32 addr)
-{
-	uint32 value = g_rdram[rdram_dram_address(addr)];
-	if (&value == 0)
-		return M64P_MEM_INVALID;
+	size_t offset = (addr_align(addr) * 4) + (3 - addr & 2);
+	u16 value; memcpy(&value, (u8*)g_rdram + offset, 2);
 	return value;
 }
 
-EXPORT uint32 CALL read_rdram_32_unaligned(uint32 addr)
+EXPORT u8 CALL read_rdram_8(u32 addr)
 {
-	uint8 i, b[4];
-
-	for (i = 0; i<4; i++) b[i] = read_rdram_8(addr + i);
-	return (b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3];
+	size_t offset = (addr_align(addr) * 4) + (3 - addr & 3);
+	u8 value; memcpy(&value, (u8*)g_rdram + offset, 1);
+	return value;
 }
 
-EXPORT void CALL write_rdram_32(uint32 addr, uint32 value)
+// -------------------------------------------
+
+EXPORT void CALL write_rdram_32(u32 addr, u32 value)
 {
-	g_rdram[rdram_dram_address(addr)] = value;
+	size_t offset = addr_align(addr) * 4;
+	memcpy((u8*)g_rdram + offset, &value, 4);
 }
 
-EXPORT void CALL write_rdram_32_unaligned(uint32 addr, uint32 value)
+EXPORT void CALL write_rdram_16(u32 addr, u16 value)
 {
-	write_rdram_8(addr + 0, value >> 24);
-	write_rdram_8(addr + 1, (value >> 16) & 0xFF);
-	write_rdram_8(addr + 2, (value >> 8) & 0xFF);
-	write_rdram_8(addr + 3, value & 0xFF);
+	size_t offset = (addr_align(addr) * 4) + (3 - addr & 2);
+	memcpy((u8*)g_rdram + offset, &value, 2);
 }
 
-EXPORT uint16 CALL read_rdram_16(uint32 addr)
+EXPORT void CALL write_rdram_8(u32 addr, u8 value)
 {
-	return ((uint16)read_rdram_8(addr) << 8) |
-		(uint16)read_rdram_8(addr + 1);
-}
-
-EXPORT void CALL write_rdram_16(uint32 addr, uint16 value)
-{
-	write_rdram_8(addr, value >> 8);
-	write_rdram_8(addr + 1, value & 0xFF);
-}
-
-EXPORT uint8 CALL read_rdram_8(uint32 addr)
-{
-	uint32 word = read_rdram_32(addr & ~3);
-	return (word >> ((3 - (addr & 3)) * 8)) & 0xFF;
-}
-
-EXPORT void CALL write_rdram_8(uint32 addr, uint8 value)
-{
-	uint32 word, mask;
-
-	word = read_rdram_32(addr & ~3);
-	mask = 0xFF << ((3 - (addr & 3)) * 8);
-	word = (word & ~mask) | (value << ((3 - (addr & 3)) * 8));
-	write_rdram_32(addr & ~3, word);
+	size_t offset = (addr_align(addr) * 4) + (3 - addr & 3);
+	memcpy((u8*)g_rdram + offset, &value, 1);
 }
 
 // #########################################################
 // ## Rom Memory
 // #########################################################
 
-EXPORT const char* CALL read_rom_buffer(uint32 addr, uint32 length)
+#ifdef WIN32
+#include <stdlib.h>
+#define __bswap_32(x) ((u32)_byteswap_ulong(x))
+#define __bswap_16(x) ((u16)_byteswap_ushort(x))
+#else
+#define __bswap_32(x) ((u32)__builtin_bswap32(x))
+#define __bswap_16(x) ((u16)__builtin_bswap16(x))
+#endif
+
+EXPORT const u8* CALL read_rom_buffer(u32 addr, u32 length)
 {
-	const char* value = malloc(length + 1);
-	memcpy(value, g_rom[addr], length);
+	const u8* value = malloc(length + 1);
+	memcpy(value, g_rom + addr, length);
 	return value;
 }
 
-EXPORT uint64 CALL read_rom_64(uint32 addr)
+EXPORT u32 CALL read_rom_32(u32 addr)
 {
-	return ((uint64)read_rom_32(addr) << 32) | (uint64)read_rom_32(addr + 4);
+	size_t offset = addr_align(addr) * 4;
+	u32 value; memcpy(&value, g_rom + offset, 4);
+	return (__bswap_32(value));
 }
 
-EXPORT void CALL write_rom_64(uint32 addr, uint64 value)
+EXPORT u16 CALL read_rom_16(u32 addr)
 {
-	write_rom_32(addr, (uint32)(value >> 32));
-	write_rom_32(addr + 4, (uint32)(value & 0xFFFFFFFF));
+	size_t offset = (addr_align(addr) * 4) + (addr & 2);
+	u16 value; memcpy(&value, g_rom + offset, 2);
+	return (__bswap_16(value));
 }
 
-EXPORT uint32 CALL read_rom_32(uint32 addr)
+EXPORT u8 CALL read_rom_8(u32 addr)
 {
-	uint8 i, b[4];
-
-	for (i = 0; i < 4; i++) b[i] = read_rom_8(addr + i);
-	return (b[0] << 24) | (b[1] << 16) | (b[2] << 8) | b[3];
+	return (u8)g_rom[addr];
 }
 
-EXPORT void CALL write_rom_32(uint32 addr, uint32 value)
+// -------------------------------------------
+
+EXPORT void CALL write_rom_32(u32 addr, u32 value)
 {
-	write_rom_8(addr + 0, value >> 24);
-	write_rom_8(addr + 1, (value >> 16) & 0xFF);
-	write_rom_8(addr + 2, (value >> 8) & 0xFF);
-	write_rom_8(addr + 3, value & 0xFF);
+	size_t offset = addr_align(addr) * 4;
+	value = __bswap_32(value);
+	memcpy(g_rom + offset, &value, 4);
 }
 
-EXPORT uint16 CALL read_rom_16(uint32 addr)
+EXPORT void CALL write_rom_16(u32 addr, u16 value)
 {
-	return ((uint16)read_rom_8(addr) << 8) |
-		(uint16)read_rom_8(addr + 1);
+	size_t offset = (addr_align(addr) * 4) + (addr & 2);
+	value = __bswap_16(value);
+	memcpy(g_rom + offset, &value, 2);
 }
 
-EXPORT void CALL write_rom_16(uint32 addr, uint16 value)
-{
-	write_rom_8(addr, value >> 8);
-	write_rom_8(addr + 1, value & 0xFF);
-}
-
-EXPORT uint8 CALL read_rom_8(uint32 addr)
-{
-	uint8 value = g_rom[addr];
-	if (&value == 0)
-		return M64P_MEM_INVALID;
-	return value;
-}
-
-EXPORT void CALL write_rom_8(uint32 addr, uint8 value)
+EXPORT void CALL write_rom_8(u32 addr, u8 value)
 {
 	g_rom[addr] = value;
 }

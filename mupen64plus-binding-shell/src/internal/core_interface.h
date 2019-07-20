@@ -43,28 +43,22 @@ extern ptr_CoreErrorMessage    CoreErrorMessage;
 
 /* declarations of pointers to Core rdram functions */
 extern ptr_read_rdram_buffer			RdRamReadBuffer;
-extern ptr_read_rdram_64				RdRamRead64;
-extern ptr_read_rdram_64_unaligned		RdRamReadU64;
-extern ptr_write_rdram_64				RdRamWrite64;
-extern ptr_write_rdram_64_unaligned		RdRamWriteU64;
 extern ptr_read_rdram_32				RdRamRead32;
-extern ptr_read_rdram_32_unaligned		RdRamReadU32;
-extern ptr_write_rdram_32				RdRamWrite32;
-extern ptr_write_rdram_32_unaligned		RdRamWriteU32;
 extern ptr_read_rdram_16				RdRamRead16;
-extern ptr_write_rdram_16				RdRamWrite16;
 extern ptr_read_rdram_8					RdRamRead8;
+
+extern ptr_write_rdram_32				RdRamWrite32;
+extern ptr_write_rdram_16				RdRamWrite16;
 extern ptr_write_rdram_8				RdRamWrite8;
 
 /* declarations of pointers to Core Rom functions */
 extern ptr_read_rom_buffer			RomReadBuffer;
-extern ptr_read_rom_64				RomRead64;
-extern ptr_write_rom_64				RomWrite64;
 extern ptr_read_rom_32				RomRead32;
-extern ptr_write_rom_32				RomWrite32;
 extern ptr_read_rom_16				RomRead16;
-extern ptr_write_rom_16				RomWrite16;
 extern ptr_read_rom_8				RomRead8;
+
+extern ptr_write_rom_32				RomWrite32;
+extern ptr_write_rom_16				RomWrite16;
 extern ptr_write_rom_8				RomWrite8;
 
 /* declarations of pointers to Core SaveState functions */

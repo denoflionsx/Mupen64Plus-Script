@@ -8,19 +8,13 @@ using namespace Napi;
 // ## RDRam Memory
 // #########################################################
 
-Uint8Array npmRdRamReadBuffer(const CallbackInfo& info);
-Number npmRdRamRead64(const CallbackInfo& info);
-Number npmRdRamReadU64(const CallbackInfo& info);
+Buffer<uint8_t> npmRdRamReadBuffer(const CallbackInfo& info);
 Number npmRdRamRead32(const CallbackInfo& info);
-Number npmRdRamReadU32(const CallbackInfo& info);
 Number npmRdRamRead16(const CallbackInfo& info);
 Number npmRdRamRead8(const CallbackInfo& info);
 
 Value npmRdRamWriteBuffer(const CallbackInfo& info);
-Value npmRdRamWrite64(const CallbackInfo& info);
-Value npmRdRamWriteU64(const CallbackInfo& info);
 Value npmRdRamWrite32(const CallbackInfo& info);
-Value npmRdRamWriteU32(const CallbackInfo& info);
 Value npmRdRamWrite16(const CallbackInfo& info);
 Value npmRdRamWrite8(const CallbackInfo& info);
 
@@ -28,14 +22,12 @@ Value npmRdRamWrite8(const CallbackInfo& info);
 // ## Rom Memory
 // #########################################################
 
-Uint8Array npmRomReadBuffer(const CallbackInfo& info);
-Number npmRomRead64(const CallbackInfo& info);
+Buffer<uint8_t> npmRomReadBuffer(const CallbackInfo& info);
 Number npmRomRead32(const CallbackInfo& info);
 Number npmRomRead16(const CallbackInfo& info);
 Number npmRomRead8(const CallbackInfo& info);
 
 Value npmRomWriteBuffer(const CallbackInfo& info);
-Value npmRomWrite64(const CallbackInfo& info);
 Value npmRomWrite32(const CallbackInfo& info);
 Value npmRomWrite16(const CallbackInfo& info);
 Value npmRomWrite8(const CallbackInfo& info);
