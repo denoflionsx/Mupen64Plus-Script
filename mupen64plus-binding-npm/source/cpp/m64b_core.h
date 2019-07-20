@@ -6,6 +6,7 @@ using namespace Napi;
 
 Number npmCoreEmuState(const CallbackInfo& info);
 Value npmSetFrameCallback(const CallbackInfo& info);
+Value npmHookFrameCallback(const CallbackInfo& info);
  
 // #########################################################
 // ## NAPI Export

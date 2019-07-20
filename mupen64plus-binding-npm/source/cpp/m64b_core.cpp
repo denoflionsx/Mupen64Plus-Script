@@ -15,6 +15,10 @@ Number npmCoreEmuState(const CallbackInfo& info) {
 Value npmSetFrameCallback(const CallbackInfo& info) {
     auto cb = info[0].As<Function>();
     Init_Callback_Frame(cb);
+    return info.Env().Undefined();
+}
+
+Value npmHookFrameCallback(const CallbackInfo& info) {
     SetFrameCallback(&M64P_Callback_Frame);
     return info.Env().Undefined();
 }
@@ -22,5 +26,6 @@ Value npmSetFrameCallback(const CallbackInfo& info) {
 Object M64B_Core_Init(Env env, Object exports) {
     exports.Set("coreEmuState", Function::New(env, npmCoreEmuState));
     exports.Set("setFrameCallback", Function::New(env, npmSetFrameCallback));
+    exports.Set("hookFrameCallback", Function::New(env, npmHookFrameCallback));
     return exports;
 }
