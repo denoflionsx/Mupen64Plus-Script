@@ -9,7 +9,7 @@ function toHex(byteArray) {
 } 
 
 function cbFrame(frameIndex) { 
-    //console.log("Frames: ", frameIndex);
+    console.log("Frames: ", frameIndex);
 }
 
 //###################################
@@ -33,13 +33,14 @@ m64p.setPluginGFX("mupen64plus-video-rice.dll");
 m64p.setPluginInput("mupen64plus-input-sdl.dll");
 m64p.setPluginRSP("mupen64plus-rsp-hle.dll");
 errCode = m64p.initialize();
+m64p.setFrameCallback(cbFrame);
 
 // Activate emulator with rom
 errCode = m64p.loadRom("mupen64plus.v64");
 errCode = m64p.runEmulator(true);
 
 // Activate callbacks
-m64p.setFrameCallback(cbFrame);
+m64p.hookFrameCallback();
 
 //###################################
 //## Handle input loop for testing
