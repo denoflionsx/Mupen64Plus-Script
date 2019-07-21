@@ -85,9 +85,13 @@ class AW_Frame : public AsyncWorker {
         void Execute() {}
         void OnOK() {
             HandleScope scope(Env());
+            printf("Scope Made\n");
             Callback().Call({Number::New(Env(), count_frame)});
+            printf("Callback Called\n");
             awFrame = new AW_Frame(Callback().Value());
+            printf("Callback Re-hooked\n");
             mutex_frame_set(1);
+            printf("Scope Made\n");
         }
         void OnError(const Napi::Error& e) {
             printf("FRAME_CALLBACK_EXCEPTION(Node Thread)\n");
