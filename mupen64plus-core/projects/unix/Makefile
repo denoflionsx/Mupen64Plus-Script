@@ -393,6 +393,62 @@ ifneq ($(SHAREDIR),)
   CFLAGS += -DSHAREDIR="$(SHAREDIR)"
 endif
 
+ifeq ($(LUA), 1)
+  ifeq ($(origin LUA52_CFLAGS) $(origin LUA52_LDLIBS), undefined undefined)
+    ifeq ($(shell $(PKG_CONFIG) --modversion lua52 2>/dev/null),)
+      $(error No lua52 development libraries found!)
+    endif
+    LUA52_CFLAGS += $(shell $(PKG_CONFIG) --cflags lua)
+    LUA52_LDLIBS +=  $(shell $(PKG_CONFIG) --libs lua)
+  endif
+  CFLAGS += $(LUA52_CFLAGS)
+  LDLIBS += $(LUA52_LDLIBS)
+
+  # CFLAGS += -DWITH_LUA
+  # LUA_SRCPATH = $(SRCDIR)/lua/lua-5.3.0/src
+  # # don't use -L because that will try to use the liblua.a already installed
+  # # on the system, which will fail if that liblua.a isn't compiled with
+  # # -fPIC (which it isn't by default)
+  # LDLIBS += $(LUA_SRCPATH)/liblua.a
+  # LUA_OS = generic
+  # ifeq ($(OS), LINUX)
+  #   LUA_OS = linux
+  # endif
+  # ifeq ($(OS), OSX)
+  #   LUA_OS = macosx
+  # endif
+  # ifeq ($(OS), FREEBSD)
+  #   LUA_OS = freebsd
+  # endif
+  # ifeq ($(OS), MINGW)
+  #   LUA_OS = mingw
+  # endif
+  # LUA_BUILDOPTS = $(LUA_OS)
+endif
+
+#ifeq ($(LUA), 1)
+  # CFLAGS += -DWITH_PYTHON
+  # LUA_SRCPATH = $(SRCDIR)/python/lua-5.3.0/src
+  # # don't use -L because that will try to use the liblua.a already installed
+  # # on the system, which will fail if that liblua.a isn't compiled with
+  # # -fPIC (which it isn't by default)
+  # LDLIBS += $(PYTHON_SRCPATH)/libpython.a
+  # PYTHON_OS = generic
+  # ifeq ($(OS), LINUX)
+  #   PYTHON_OS = linux
+  # endif
+  # ifeq ($(OS), OSX)
+  #   PYTHON_OS = macosx
+  # endif
+  # ifeq ($(OS), FREEBSD)
+  #   PYTHON_OS = freebsd
+  # endif
+  # ifeq ($(OS), MINGW)
+  #   PYTHON_OS = mingw
+  # endif
+  # PYTHON_BUILDOPTS = $(PYTHON_OS)
+#endif
+
 # set installation options
 ifeq ($(PREFIX),)
   PREFIX := /usr/local
@@ -418,6 +474,7 @@ SOURCE = \
 	$(SRCDIR)/api/config.c \
 	$(SRCDIR)/api/debugger.c \
 	$(SRCDIR)/api/frontend.c \
+	$(SRCDIR)/api/memaccess.c \
 	$(SRCDIR)/api/vidext.c \
 	$(SRCDIR)/main/main.c \
 	$(SRCDIR)/main/util.c \
@@ -491,6 +548,30 @@ ifeq ($(OSD), 1)
 SOURCE += \
 	$(SRCDIR)/osd/OGLFT.cpp \
 	$(SRCDIR)/osd/osd.cpp
+endif
+
+ifeq ($(LUA), 1)
+	SOURCE += \
+	$(SRCDIR)/script/lua/lua.c \
+	$(SRCDIR)/script/lua/m64p_lualib.c \
+	$(SRCDIR)/script/lua/m64p_lua_memlib.c \
+	$(SRCDIR)/script/lua/m64p_lua_romlib.c \
+	$(SRCDIR)/script/lua/m64p_lua_osdlib.c
+	ifeq ($(DEBUGGER), 1)
+		SOURCE += $(SRCDIR)/script/lua/m64p_lua_debuglib.c
+	endif
+endif
+
+ifeq ($(PYTHON), 1)
+	SOURCE += \
+	$(SRCDIR)/script/python/python.c \
+	$(SRCDIR)/script/python/m64p_pythonlib.c \
+	$(SRCDIR)/script/python/m64p_python_memlib.c \
+	$(SRCDIR)/script/python/m64p_python_romlib.c \
+	$(SRCDIR)/script/python/m64p_python_osdlib.c
+	ifeq ($(DEBUGGER), 1)
+		SOURCE += $(SRCDIR)/script/python/m64p_python_debuglib.c
+	endif
 endif
 
 # source files for optional features
@@ -633,6 +714,7 @@ install: $(TARGET)
 	$(INSTALL) -m 0644 $(INSTALL_STRIP_FLAG) $(TARGET) "$(DESTDIR)$(LIBDIR)"
 	$(INSTALL) -d "$(DESTDIR)$(SHAREDIR)"
 	$(INSTALL) -m 0644 ../../data/* "$(DESTDIR)$(SHAREDIR)"
+	$(INSTALL) -m 0644 ../../data/scripts* "$(DESTDIR)$(SHAREDIR)/scripts"
 	$(INSTALL) -d "$(DESTDIR)$(INCDIR)"
 	$(INSTALL) -m 0644 ../../src/api/m64p_*.h "$(DESTDIR)$(INCDIR)"
 	-$(LDCONFIG) "$(DESTDIR)$(LIBDIR)"

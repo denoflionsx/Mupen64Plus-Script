@@ -157,8 +157,12 @@ typedef enum {
   M64CMD_READ_SCREEN,
   M64CMD_RESET,
   M64CMD_ADVANCE_FRAME,
+#ifdef LUA
   M64CMD_LOAD_LUA_SCRIPT,
+#endif
+#ifdef PYTHON
   M64CMD_LOAD_PYTHON_SCRIPT,
+#endif
 } m64p_command;
 
 typedef struct {

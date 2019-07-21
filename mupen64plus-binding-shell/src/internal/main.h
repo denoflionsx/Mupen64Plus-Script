@@ -24,6 +24,10 @@
 
 #include "../cheat/cheat.h"
 
+#ifndef WIN32
+#define bool _Bool
+#endif
+
 extern void DebugMessage(int level, const char *message, ...);
 extern void DebugCallback(void *Context, int level, const char *message);
 

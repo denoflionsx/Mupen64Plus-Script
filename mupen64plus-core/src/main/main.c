@@ -75,8 +75,12 @@
 #include "util.h"
 #include "vi/vi_controller.h"
 
+#ifdef LUA
 #include "script/lua/lua.h"
+#endif
+#ifdef PYTHON
 #include "script/python/python.h"
+#endif
 
 #ifdef DBG
 #include "debugger/dbg_debugger.h"
@@ -695,8 +699,12 @@ static void video_plugin_render_callback(int bScreenRedrawn)
 {
     int bOSD = ConfigGetParamBool(g_CoreConfig, "OnScreenDisplay");
 
+#ifdef LUA
 	m64p_lua_render_callback();
+#endif
+#ifdef PYTHON
 	m64p_python_render_callback();
+#endif
 
     // if the flag is set to take a screenshot, then grab it now
     if (l_TakeScreenshot != 0)
@@ -756,8 +764,12 @@ static void apply_speed_limiter(void)
     if(g_DebuggerActive) DebuggerCallback(DEBUG_UI_VI, 0);
 #endif
 
+#ifdef LUA
 	m64p_lua_vi_callback();
+#endif
+#ifdef PYTHON
 	m64p_python_vi_callback();
+#endif
 
     // if this is the first frame, initialize our data structures
     if(LastFPSTime == 0)

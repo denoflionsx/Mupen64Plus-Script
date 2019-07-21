@@ -44,8 +44,10 @@
 #define CONFIG_PARAM_VERSION     1.00
 
 /* Fix for legacy functions called by SDLmain.lib */
+#ifdef WIN32
 extern "C" { FILE __iob_func[3] = { *stdin,*stdout,*stderr }; }
 #pragma comment(lib, "legacy_stdio_definitions.lib")
+#endif
 
 /** global variables **/
 int    g_Verbose = 0;

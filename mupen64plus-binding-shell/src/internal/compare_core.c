@@ -35,7 +35,7 @@ static FILE *fPipe = NULL;
 static int comp_reg_32[32];
 static long long comp_reg_64[32];
 static unsigned int old_op = 0;
-static int l_CoreCompareMode = CORE_COMPARE_DISABLE;
+extern int l_CoreCompareMode = CORE_COMPARE_DISABLE;
 
 static long long *ptr_reg = NULL;  /* pointer to the 64-bit general purpose registers in the core */
 static int       *ptr_cop0 = NULL; /* pointer to the 32-bit Co-processor 0 registers in the core */

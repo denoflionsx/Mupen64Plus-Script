@@ -2,6 +2,7 @@
 #include "../internal/main.h"
 #include "../plugin/plugin.h"
 #include "m64p_binding_interface.h"
+#include <string.h>
 
 // #########################################################
 // ## Paths

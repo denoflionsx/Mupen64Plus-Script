@@ -21,10 +21,13 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "main/main.h"
+#include "main/rom.h"
 #include "main/savestates.h"
 #include "memory/memory.h"
 #include "m64p_memaccess.h"
 #include "ri/rdram.h"
+#include <string.h>
+#include <stdlib.h>
 
 static u32 addr_align(u32 address)
 {
@@ -35,6 +38,7 @@ static u32 addr_align(u32 address)
 // ## RDRam Memory
 // #########################################################
 
+EXPORT u8 CALL read_rdram_8(u32 addr);
 EXPORT const u8* CALL read_rdram_buffer(u32 addr, u32 length)
 {
 	const u8* value = malloc(length + 1);
@@ -104,7 +108,6 @@ EXPORT void CALL write_rdram_8(u32 addr, u8 value)
 // #########################################################
 
 #ifdef WIN32
-#include <stdlib.h>
 #define __bswap_32(x) ((u32)_byteswap_ulong(x))
 #define __bswap_16(x) ((u16)_byteswap_ushort(x))
 #else

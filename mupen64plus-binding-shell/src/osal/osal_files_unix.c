@@ -31,7 +31,7 @@
 #include <sys/types.h>
 
 #include "m64p_types.h"
-#include "main.h"
+#include "../internal/main.h"
 #include "osal_files.h"
 #include "osal_preproc.h"
 

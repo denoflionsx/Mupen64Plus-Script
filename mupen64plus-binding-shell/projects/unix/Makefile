@@ -217,28 +217,25 @@ endif
 SRCDIR = ../../src
 OBJDIR = _obj$(POSTFIX)
 
-ifeq ("$(OS)","MINGW")
-  EXEEXT = .exe
-else
-  EXEEXT =
-endif
-
 # list of source files to compile
 SOURCE = \
-	$(SRCDIR)/cheat.c \
-	$(SRCDIR)/compare_core.c \
-	$(SRCDIR)/core_interface.c \
-	$(SRCDIR)/main.c \
-	$(SRCDIR)/plugin.c
+	$(SRCDIR)/api/m64p_binding_core.c \
+	$(SRCDIR)/api/m64p_binding_interface.c \
+	$(SRCDIR)/api/m64p_binding_memory.c \
+	$(SRCDIR)/cheat/cheat.c \
+	$(SRCDIR)/internal/compare_core.c \
+	$(SRCDIR)/internal/core_interface.c \
+	$(SRCDIR)/internal/main.c \
+	$(SRCDIR)/plugin/plugin.c
 
 ifeq ($(OS), MINGW)
 SOURCE += \
-	$(SRCDIR)/osal_dynamiclib_win32.c \
-	$(SRCDIR)/osal_files_win32.c
+	$(SRCDIR)/osal/osal_dynamiclib_win32.c \
+	$(SRCDIR)/osal/osal_files_win32.c
 else
 SOURCE += \
-	$(SRCDIR)/osal_dynamiclib_unix.c \
-	$(SRCDIR)/osal_files_unix.c
+	$(SRCDIR)/osal/osal_dynamiclib_unix.c \
+	$(SRCDIR)/osal/osal_files_unix.c
 endif
 
 # generate a list of object files build, make a temporary directory for them
@@ -246,8 +243,51 @@ OBJECTS := $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(filter %.c, $(SOURCE)))
 OBJDIRS = $(dir $(OBJECTS))
 $(shell $(MKDIR) $(OBJDIRS))
 
-# build targets
-TARGET = mupen64plus$(POSTFIX)$(EXEEXT)
+# set special flags per-system
+ifeq ($(OS), FREEBSD)
+  TARGET = libmupen64plus-binding-shell.so.2.0.0
+  SONAME = libmupen64plus-binding-shell.so.2
+  LDFLAGS += -Wl,-Bsymbolic -shared -Wl,-export-dynamic -Wl,-soname,$(SONAME)
+  LDLIBS += -L${LOCALBASE}/lib -lc
+  ASFLAGS = -f elf -d ELF_TYPE
+endif
+ifeq ($(OS), LINUX)
+  TARGET = libmupen64plus-binding-shell.so.2.0.0
+  SONAME = libmupen64plus-binding-shell.so.2
+  LDFLAGS += -Wl,-Bsymbolic -shared -Wl,-export-dynamic -Wl,-soname,$(SONAME)
+  LDLIBS += -ldl
+  # only export api symbols
+  LDFLAGS += -Wl,-version-script,$(SRCDIR)/api/api_export.ver
+  ASFLAGS = -f elf -d ELF_TYPE
+endif
+ifeq ($(OS), OSX)
+  #xcode-select has been around since XCode 3.0, i.e. OS X 10.5
+  OSX_SDK_ROOT = $(shell xcode-select -print-path)/Platforms/MacOSX.platform/Developer/SDKs
+  OSX_SDK_PATH = $(OSX_SDK_ROOT)/$(shell ls $(OSX_SDK_ROOT) | tail -1)
+
+  TARGET = libmupen64plus-binding-shell.dylib
+  LDFLAGS += -framework CoreFoundation -bundle -read_only_relocs suppress
+  LDLIBS += -ldl
+  ASFLAGS = -f macho
+  ifeq ($(CPU), X86)
+    ifeq ($(ARCH_DETECTED), 64BITS)
+      CFLAGS += -pipe -arch x86_64 -mmacosx-version-min=10.5 -isysroot $(OSX_SDK_PATH)
+    else
+      CFLAGS += -pipe -mmmx -msse -arch i686 -mmacosx-version-min=10.5 -isysroot $(OSX_SDK_PATH)
+      ifneq ($(PROFILE), 1)
+        CFLAGS += -fomit-frame-pointer
+      endif
+    endif
+  endif
+endif
+ifeq ($(OS), MINGW)
+  TARGET = mupen64plus-binding-shell.dll
+  LDFLAGS += -Wl,-Bsymbolic -shared -Wl,-export-all-symbols
+  # only export api symbols
+  LDFLAGS += -Wl,-version-script,$(SRCDIR)/api/api_export.ver
+  LDLIBS += -lpthread
+  ASFLAGS = -f win32
+endif
 
 targets:
 	@echo "Mupen64Plus-ui-console makefile."

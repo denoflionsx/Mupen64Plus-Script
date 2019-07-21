@@ -1505,7 +1505,7 @@ extern void savestates_hack_refresh(void)
 	update_x86_rounding_mode(*r4300_cp1_fcr31());
 	uint32_t pc = *r4300_pc();
 	savestates_load_set_pc(pc);
-	*r4300_last_addr() = *r4300_pc(pc);
+	*r4300_last_addr() = pc;
 
 	//printf("Registers set!");
 

@@ -28,8 +28,12 @@
 #include "api/m64p_types.h"
 #include "osal/preproc.h"
 
+#ifdef LUA
 #include "script/lua/lua.h"
+#endif
+#ifdef PYTHON
 #include "script/python/python.h"
+#endif
 
 struct ai_controller;
 struct pi_controller;

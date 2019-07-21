@@ -3,6 +3,10 @@
 
 #include "m64p_types.h"
 
+#ifndef WIN32
+#define bool _Bool
+#endif
+
 EXPORT void CALL SetCoreLib(const char *input);
 EXPORT void CALL SetConfigDir(const char *input);
 EXPORT void CALL SetDataDir(const char *input);
