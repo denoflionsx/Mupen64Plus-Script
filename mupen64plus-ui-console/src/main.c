@@ -581,16 +581,20 @@ static m64p_error ParseCommandLineFinal(int argc, const char **argv)
 				return M64ERR_INPUT_INVALID;
 			i++;
 		}
+#ifdef LUA
 		else if (strcmp(argv[i], "--lua") == 0 && ArgsLeft >= 1)
 		{
 			(*CoreDoCommand)(M64CMD_LOAD_LUA_SCRIPT, 0, (char*)argv[i + 1]);
 			i++;
 		}
+#endif
+#ifdef PYTHON
 		else if (strcmp(argv[i], "--python") == 0 && ArgsLeft >= 1)
 		{
 			(*CoreDoCommand)(M64CMD_LOAD_PYTHON_SCRIPT, 0, (char*)argv[i + 1]);
 			i++;
 		}
+#endif
 		else if (strcmp(argv[i], "--core-compare-send") == 0)
 		{
 			l_CoreCompareMode = 1;
