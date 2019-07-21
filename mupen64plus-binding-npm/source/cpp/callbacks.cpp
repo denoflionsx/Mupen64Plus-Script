@@ -12,20 +12,13 @@ static unsigned int ready_frame = 1;
 // #########################################################
 
 #ifdef WIN32
+
 #include <windows.h>
 
 HANDLE mutex_frame = CreateMutex(NULL, FALSE, NULL); 
 
-#else
-#include <pthread.h>
-
-pthread_mutex_t mutex_frame = PTHREAD_MUTEX_INITIALIZER;
-#endif
-
 bool mutex_frame_get() {
     bool ready;
-
-#ifdef WIN32
     DWORD dWait = WaitForSingleObject(mutex_frame, INFINITE);
     switch (dWait) {
         case WAIT_OBJECT_0: 
@@ -38,21 +31,10 @@ bool mutex_frame_get() {
         case WAIT_ABANDONED: 
             printf("FRAME_CALLBACK_EXCEPTION\n"); 
             break;
-    }
-
-    // return ready_frame;
-    // printf("Unsafe Callback Made!\n");
-#else
-    pthread_mutex_lock(&mutex_frame);
-    ready = ready_frame;
-    pthread_mutex_unlock(&mutex_frame);
-#endif
-
-    return ready;
+    } return ready;
 }
 
 void mutex_frame_set(int ready) {
-#ifdef WIN32
     DWORD dWait = WaitForSingleObject(mutex_frame, INFINITE);
     switch (dWait) {
         case WAIT_OBJECT_0: 
@@ -66,14 +48,29 @@ void mutex_frame_set(int ready) {
             printf("FRAME_CALLBACK_EXCEPTION\n"); 
             break;
     }
-    // memcpy(&ready_frame, &ready, 4);
-    // printf("Unsafe Callback Made!\n");
+}
+
 #else
+
+#include <pthread.h>
+
+pthread_mutex_t mutex_frame = PTHREAD_MUTEX_INITIALIZER;
+
+bool mutex_frame_get() {
+    bool ready;
+    pthread_mutex_lock(&mutex_frame);
+    ready = ready_frame;
+    pthread_mutex_unlock(&mutex_frame);
+    return ready;
+}
+
+void mutex_frame_set(int ready) {
     pthread_mutex_lock(&mutex_frame);
     ready_frame = ready;
     pthread_mutex_unlock(&mutex_frame);
-#endif
 }
+
+#endif
 
 // #########################################################
 // ## Async Worker (ThreadSafe) Objects
@@ -89,6 +86,11 @@ class AW_Frame : public AsyncWorker {
         void OnOK() {
             HandleScope scope(Env());
             Callback().Call({Number::New(Env(), count_frame)});
+            awFrame = new AW_Frame(Callback().Value());
+            mutex_frame_set(1);
+        }
+        void OnError(const Napi::Error& e) {
+            printf("FRAME_CALLBACK_EXCEPTION(Node Thread)\n");
             awFrame = new AW_Frame(Callback().Value());
             mutex_frame_set(1);
         }
