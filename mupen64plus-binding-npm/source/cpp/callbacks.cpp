@@ -85,13 +85,12 @@ class AW_Frame : public AsyncWorker {
         void Execute() {}
         void OnOK() {
             HandleScope scope(Env());
-            printf("Scope Made\n");
-            Callback().Call({Number::New(Env(), count_frame)});
-            printf("Callback Called\n");
+
+            if (!Callback().IsEmpty())
+                Callback().Call({Number::New(Env(), count_frame)});
+
             awFrame = new AW_Frame(Callback().Value());
-            printf("Callback Re-hooked\n");
             mutex_frame_set(1);
-            printf("Scope Made\n");
         }
         void OnError(const Napi::Error& e) {
             printf("FRAME_CALLBACK_EXCEPTION(Node Thread)\n");
@@ -118,7 +117,7 @@ void M64P_Callback_Frame(unsigned int frameIndex) {
     while (!mutex_frame_get())
         this_thread::sleep_for(chrono::milliseconds(1));
     
-    memcpy(&count_frame, &frameIndex, 4);
+    count_frame = frameIndex
     mutex_frame_set(0);
     awFrame->Queue(); 
 }
