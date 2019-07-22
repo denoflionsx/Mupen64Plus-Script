@@ -117,7 +117,7 @@ void M64P_Callback_Frame(unsigned int frameIndex) {
     while (!mutex_frame_get())
         this_thread::sleep_for(chrono::milliseconds(1));
     
-    count_frame = frameIndex
+	count_frame = frameIndex;
     mutex_frame_set(0);
     awFrame->Queue(); 
 }
